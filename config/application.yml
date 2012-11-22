@@ -1,0 +1,16 @@
+defaults: &defaults
+  soundcloud:
+    app: 
+      client_id: "f1c7facfa649e689af8bc445a61ff3b2"
+      client_secret: "aa5bd2d7d62eecb8a370c8a816ef85dd"
+
+      
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
