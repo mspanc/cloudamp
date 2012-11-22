@@ -1,6 +1,16 @@
 /*
  *= require twitter/bootstrap
- *= require fonts
  *= require_self
  */
+
+/* Reset default Bootstrap padding for container */
+.container-fluid {
+  padding: 0;
+}
+
+
+/* Side panels */
+.panel {
+  padding: 1em;
+}
 

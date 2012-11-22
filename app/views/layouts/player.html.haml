@@ -5,13 +5,30 @@
       ="#{session[:soundcloud_username]}'s CloudAmp"
       
     =stylesheet_link_tag :player
-    =stylesheet_link_tag "http://fonts.googleapis.com/css?family=Average+Sans"
+    =javascript_include_tag "http://connect.soundcloud.com/sdk.js"
+    =javascript_include_tag :player
   
   %body.player
-    .container-fluid
+    .container-fluid#app
       .row-fluid
-        .span2
+        .span2.panel.panel-search
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on
+                  %i.icon-search
+                %input{ :type => "text", :placeholder => "user name, track name, URL..." }
+                %input#search.btn{ :type => "button", :value => "S" }
+          
+        .span8
+          Playlist will be here
+        .span2.panel.panel-user-info
           Welcome
           =session[:soundcloud_username]
-          =button_to "Sign out", session_path, :method => :delete
-        .span10
+          =button_to "Sign out", session_path, :method => :delete, :class => "btn btn-block"
+
+
+
+    %script#search-result-template{ :type => "text/template"}
+      %span
+        XYZ

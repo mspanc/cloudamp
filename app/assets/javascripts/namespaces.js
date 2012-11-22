@@ -1,0 +1,5 @@
+var CloudAmp = {
+  Models   : {},
+  Views    : {}
+};
+
