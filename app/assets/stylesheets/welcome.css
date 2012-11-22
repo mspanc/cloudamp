@@ -1,0 +1,22 @@
+/*
+ *= require twitter/bootstrap
+ *= require fonts
+ *= require_self
+ */
+ 
+.welcome-modal {
+  width: 60ex;
+  height: 60ex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -30ex;
+  margin-left: -30ex;
+  text-align: center;
+}
+
+.welcome-modal h1 {
+  color: #C11C0C;
+}
+
+

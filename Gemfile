@@ -7,6 +7,8 @@ gem 'rails', '3.2.9'
 
 gem 'haml'
 gem 'soundcloud'
+gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
+gem 'thin'
 
 group :development do
   gem 'sqlite3'
@@ -15,7 +17,6 @@ end
 
 group :production do
   gem 'pg'
-
 end
 
 # Gems used only for assets and not required
