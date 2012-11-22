@@ -7,15 +7,15 @@
 # See http://developers.soundcloud.com/docs#authentication
 # for more information.
 # 
-class AuthenticationController < ApplicationController
+class SessionsController < ApplicationController
   layout false
   
   # Redirects to SoundCloud's sign in form.
   #
   # After successful sign in user will be redirected back to the app,
-  # please refer to AuthenticationController#initialize_session for 
+  # please refer to SessionsController#initialize_session for 
   # more information.
-  def redirect
+  def connect
     redirect_to soundcloud.authorize_url
   end
   
@@ -32,7 +32,7 @@ class AuthenticationController < ApplicationController
   #   - +code+ -> code used to retreive access token
   #   - +expires_in+ -> code expiration time
   #   - +scope+ -> code's scope
-  def initialize_session
+  def new
     # Get access token from SoundCloud and save it for use in the player
     session[:soundcloud_access_token] = soundcloud.exchange_token(:code => params[:code]).access_token
     
@@ -52,12 +52,12 @@ class AuthenticationController < ApplicationController
 
     # Handle cases when API is not responding
     rescue Soundcloud::ResponseError => e
+      # Clean up the session 
+      reset_session
+
       # Log the error and inform the user     
       logger.warn "[initialize_session] SoundCloud replied with error: #{e}, parameters were: #{params.inspect}"
       flash[:error] = "We are unable to connect with your SoundCloud account. Please try again."
-      
-      # Clean up the session 
-      reset_session
       
       # Go back to the home page
       redirect_to root_url
@@ -65,15 +65,24 @@ class AuthenticationController < ApplicationController
     
     # Handle other errors
     rescue
+      # Clean up the session 
+      reset_session
+
       # Log the error and inform the user 
       logger.warn "[initialize_session] Error #{$!.class}: #{$!}, parameters were: #{params.inspect}"
       flash[:error] = "We've encountered an internal server error while connecting with your SoundCloud account. Please try again."
-
-      # Clean up the session 
-      reset_session
       
       # Go back to the home page
       redirect_to root_url
-       
+  end
+  
+  
+  # Signs out current user and redirects back to home page.
+  def destroy
+    # Clean up the session 
+    reset_session
+    
+    # Go back to the home page
+    redirect_to root_url
   end
 end

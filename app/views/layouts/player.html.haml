@@ -8,3 +8,10 @@
     =stylesheet_link_tag "http://fonts.googleapis.com/css?family=Average+Sans"
   
   %body.player
+    .container-fluid
+      .row-fluid
+        .span2
+          Welcome
+          =session[:soundcloud_username]
+          =button_to "Sign out", session_path, :method => :delete
+        .span10
