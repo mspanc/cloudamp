@@ -1,5 +1,8 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require twitter/bootstrap/transition
+//= require twitter/bootstrap/modal
 //= require libraries/underscore-min
 //= require libraries/backbone-min
 

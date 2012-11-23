@@ -14,9 +14,13 @@
   padding: 1em;
 }
 
+/* Forms */
+.errorneous {
+  color: #cc0000 !important;
+}
+
 
 /* Search */
-
 .search-results ul {
   list-style-type: none;
   padding: 0;

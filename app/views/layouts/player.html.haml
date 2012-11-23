@@ -27,6 +27,38 @@
         .span6#panel_playlists
           %nav#panel_playlists_tabs
             %ul
+            %a.btn.btn-small#new_playlist_button{ :href => "#modal_new_playlist", :role => "button", :"data-toggle" => "modal" }
+              %i.icon-plus
+              
+            #modal_new_playlist.modal.fade.hide{ :tabindex => -1, :role => "dialog", :"aria-labelledby" => "modal_new_playlist_title", :"aria-hidden" => "true" }
+              .modal-header
+                %button.close{ :type => "button", :"data-dismiss" => "modal", :"aria-hidden" => "true" }
+                  ×
+                %h3
+                  Add Playlist
+              .modal-body
+                %p
+                  Please name your new playlist and give it an optional description.
+                .alert.alert-error.hide#modal_new_playlist_error_title_empty
+                  Title cannot be empty.
+                %form.form-horizontal
+                  .control-group
+                    %label#modal_new_playlist_label_title.control-label{ :for => "modal_new_playlist_form_title" }
+                      Title *
+                    .controls
+                      %input#modal_new_playlist_field_title{ :type => "text" }
+                  .control-group
+                    %label.control-label{ :for => "modal_new_playlist_form_description" }
+                      Description
+                    .controls
+                      %input#modal_new_playlist_field_description{ :type => "text" }
+                      
+              .modal-footer
+                %button.btn{ :"data-dismiss" => "modal", :"aria-hidden" => "true" }
+                  Cancel
+                %button.btn.btn-primary#modal_new_playlist_submit
+                  Add playlist
+                
             
           #panel_playlists_contents
           
@@ -35,6 +67,8 @@
           Welcome
           =session[:soundcloud_username]
           =button_to "Sign out", session_path, :method => :delete, :class => "btn btn-block"
+
+
 
 
       
@@ -46,8 +80,11 @@
       .clearfix
       
     %script#playlist-tab-template{ :type => "text/template" }
-      XXX
+      .title
+        <%- title %>
       
+  
+  
       
   :javascript
     $(function() {
