@@ -45,6 +45,8 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    foreigner (1.2.1)
+      activerecord (>= 3.0.0)
     haml (3.1.7)
     hashie (1.2.0)
     hike (1.2.1)
@@ -131,6 +133,7 @@ PLATFORMS
 DEPENDENCIES
   anjlab-bootstrap-rails (>= 2.2)
   coffee-rails (~> 3.2.1)
+  foreigner
   haml
   jquery-rails
   pg

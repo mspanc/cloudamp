@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  has_many :playlists, :dependent => :destroy
+  
+  after_create :create_first_playlist
+
   # Helper function that is used for storing local user accounts
   # and match them with SoundCloud accounts.
   #
@@ -24,5 +28,15 @@ class User < ActiveRecord::Base
       
       user
     end
+  end
+  
+  
+  protected
+  
+  def create_first_playlist
+    p = Playlist.new 
+    p.title = "My Playlist"
+    p.user  = self
+    p.save!
   end
 end

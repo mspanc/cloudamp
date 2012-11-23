@@ -10,6 +10,7 @@ gem 'soundcloud'
 gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
 gem 'thin'
 gem 'settingslogic'
+gem 'foreigner'
 
 group :development do
   gem 'sqlite3'
