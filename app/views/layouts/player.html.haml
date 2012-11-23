@@ -12,13 +12,18 @@
     .container-fluid#app
       .row-fluid
         .span2.panel.panel-search
-          .control-group
-            .controls
-              .input-prepend
-                %span.add-on
-                  %i.icon-search
-                %input{ :type => "text", :placeholder => "user name, track name, URL..." }
-                %input#search.btn{ :type => "button", :value => "S" }
+          .search-box
+            .control-group
+              .controls
+                .input-prepend
+                  %span.add-on
+                    %i.icon-search
+                  %input#search_field{ :type => "text", :placeholder => "user name, track name, URL..." }
+                  %input#search_button.btn{ :type => "button", :value => "S" }
+        
+            .search-results
+              %ul
+          
           
         .span8
           Playlist will be here
@@ -28,7 +33,8 @@
           =button_to "Sign out", session_path, :method => :delete, :class => "btn btn-block"
 
 
-
-    %script#search-result-template{ :type => "text/template"}
-      %span
-        XYZ
+      
+    %script#search-result-template{ :type => "text/template" }
+      
+      .title
+        <%- title %>

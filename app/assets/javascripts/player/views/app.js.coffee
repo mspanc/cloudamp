@@ -2,13 +2,8 @@ $ ->
   class CloudAmp.Views.App extends Backbone.View
     el: $ "#app"
     
-    events:
-      'click #search' : 'search'
-      
     initialize: ->
-      console.log("App init")
+      console.log("CloudAmp.Views.App init")
+      @search_view = new CloudAmp.Views.SearchPanel
     
-    search: () =>
-      console.log("Search")
-      
-  instance = new CloudAmp.Views.App
+

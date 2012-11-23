@@ -1,5 +1,4 @@
-$ ->
-  class CloudAmp.Models.SearchResult extends Backbone.Model
-    
-  
-  instance = new CloudAmp.Models.SearchResult;
+class CloudAmp.Models.SearchResult extends Backbone.Model
+  initialize: () ->
+    console.log "CloudAmp.Models.SearchResult init"
+
