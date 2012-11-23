@@ -14,3 +14,30 @@
   padding: 1em;
 }
 
+
+/* Search */
+
+.search-results ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-results li {
+  clear: left;
+  margin-bottom: 8px;
+}
+
+.search-results .artwork {
+  float: left;
+}
+
+.search-results .artwork img {
+  width: 24px;
+  height: 24px;
+}
+
+.search-results .title {
+  padding-left: 44px;
+}
+

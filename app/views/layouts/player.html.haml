@@ -11,7 +11,7 @@
   %body.player
     .container-fluid#app
       .row-fluid
-        .span2.panel.panel-search
+        .span4.panel.panel-search
           .search-box
             .control-group
               .controls
@@ -25,7 +25,7 @@
               %ul
           
           
-        .span8
+        .span6
           Playlist will be here
         .span2.panel.panel-user-info
           Welcome
@@ -35,6 +35,8 @@
 
       
     %script#search-result-template{ :type => "text/template" }
-      
+      .thumbnail.artwork
+        %img{ :src => "<%- artwork_url %>".html_safe }
       .title
         <%- title %>
+      .clearfix
