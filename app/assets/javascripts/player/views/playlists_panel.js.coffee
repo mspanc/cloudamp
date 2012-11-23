@@ -9,6 +9,7 @@ $ ->
       
     events:
       "click #modal_new_playlist_submit" : "create_playlist"
+      "click #new_playlist_button"       : "show_new_playlist_modal"
       
     
     bootstrap: (initial_data) ->
@@ -24,20 +25,26 @@ $ ->
       playlists.each (playlist) =>
         @render_one_playlist playlist
 
+    
+    show_new_playlist_modal: () ->
+      @$("#modal_new_playlist button").attr "disabled", false
+      @$("#modal_new_playlist_field_title").val ""
+      @$("#modal_new_playlist_field_description").val ""
+      @$("#modal_new_playlist").modal 'show' 
         
         
     create_playlist: () ->
       @$("#modal_new_playlist_error_title_empty").hide()
-      @$("#modal_new_playlist_label_title").removeClass("errorneous")
-      @$("#modal_new_playlist_field_title").removeClass("errorneous")
+      @$("#modal_new_playlist_label_title").removeClass "errorneous"
+      @$("#modal_new_playlist_field_title").removeClass "errorneous"
       
       if $("#modal_new_playlist_field_title").val().trim() == ""
         @$("#modal_new_playlist_error_title_empty").fadeIn()
-        @$("#modal_new_playlist_label_title").addClass("errorneous")
-        @$("#modal_new_playlist_field_title").addClass("errorneous")
+        @$("#modal_new_playlist_label_title").addClass "errorneous"
+        @$("#modal_new_playlist_field_title").addClass "errorneous"
 
       else
-        @$("#modal_new_playlist button").attr("disabled", true)
+        @$("#modal_new_playlist button").attr "disabled", true
         
         playlist = new CloudAmp.Models.Playlist { 
           title : $("#modal_new_playlist_field_title").val().trim(), 
@@ -45,5 +52,5 @@ $ ->
           
         @playlist_collection.add playlist
         
-        @$("#modal_new_playlist").modal('hide')
+        @$("#modal_new_playlist").modal 'hide'
      
