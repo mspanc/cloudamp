@@ -14,8 +14,8 @@ class Playlist < ActiveRecord::Base
                        :uniqueness   => { :scope => :user_id }
                        
   
-  before_destroy :ensure_we_dont_delete_last_playlist
-  before_create  :set_last_position
+  before_destroy    :ensure_we_dont_delete_last_playlist
+  before_validation :set_last_position, :on => :create
   
   scope :ordered,            :order => "position ASC"
   scope :filtered_for_views, :select => [ :id, :title, :description ]
@@ -25,9 +25,9 @@ class Playlist < ActiveRecord::Base
   def set_last_position
     greatest_position = user.playlists.select(:position).order("position DESC").first
     if greatest_position.nil?
-      position = 0
+      self.position = 0
     else
-      position = greatest_position.position + 1
+      self.position = greatest_position.position + 1
     end
   end
   

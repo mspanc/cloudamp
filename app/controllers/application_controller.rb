@@ -45,7 +45,11 @@ class ApplicationController < ActionController::Base
       flash[:error] = "You must be signed in to use the player."
       
       # Go back to the home page
-      redirect_to root_url
+      respond_to do |format|
+        format.html { redirect_to root_url }
+        format.json { head :forbidden }
+      end
+      
     end
   end  
 end

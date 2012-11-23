@@ -23,10 +23,8 @@ class CloudAmp.Models.SearchResultCollection extends Backbone.Collection
 
       # Strip unnecessary attributes, save the memory!
       stripped_tracks = stripped_tracks.map (track) =>
-        { 
-          artwork_url : track.artwork_url,
-          title       : track.title
-        }
+        artwork_url : track.artwork_url,
+        title       : track.title
     
       # Notify that we had successfully fetched search results
       options.success stripped_tracks

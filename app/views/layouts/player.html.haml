@@ -7,6 +7,7 @@
     =stylesheet_link_tag :player
     =javascript_include_tag "http://connect.soundcloud.com/sdk.js"
     =javascript_include_tag :player
+    =csrf_meta_tag
   
   %body.player
     .container-fluid#app
@@ -39,8 +40,12 @@
               .modal-body
                 %p
                   Please name your new playlist and give it an optional description.
+
                 .alert.alert-error.hide#modal_new_playlist_error_title_empty
                   Title cannot be empty.
+                .alert.alert-error.hide#modal_new_playlist_error_cannot_save
+                  Unable to save playlist due to internal server error, please try again.
+                  
                 %form.form-horizontal
                   .control-group
                     %label#modal_new_playlist_label_title.control-label{ :for => "modal_new_playlist_form_title" }

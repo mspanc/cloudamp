@@ -34,6 +34,7 @@ $ ->
         
         
     create_playlist: () ->
+      @$("#modal_new_playlist_error_cannot_save").hide()
       @$("#modal_new_playlist_error_title_empty").hide()
       @$("#modal_new_playlist_label_title").removeClass "errorneous"
       @$("#modal_new_playlist_field_title").removeClass "errorneous"
@@ -46,11 +47,17 @@ $ ->
       else
         @$("#modal_new_playlist button").attr "disabled", true
         
-        playlist = new CloudAmp.Models.Playlist { 
+        playlist = new CloudAmp.Models.Playlist 
           title : $("#modal_new_playlist_field_title").val().trim(), 
-          description : $("#modal_new_playlist_field_description").val().trim() }
+          description : $("#modal_new_playlist_field_description").val().trim()
           
-        @playlist_collection.add playlist
-        
-        @$("#modal_new_playlist").modal 'hide'
+        playlist.save {}, 
+          success: (model, response, options) =>
+            @playlist_collection.add playlist
+            @$("#modal_new_playlist").modal 'hide'
+
+          error: (model, response, options) =>
+            @$("#modal_new_playlist_error_cannot_save").fadeIn()
+            @$("#modal_new_playlist button").attr "disabled", false
+
      

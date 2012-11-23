@@ -6,6 +6,7 @@
 //= require libraries/underscore-min
 //= require libraries/backbone-min
 
+//= require csrf
 //= require namespaces
 //= require soundcloud
 
