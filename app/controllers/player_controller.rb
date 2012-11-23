@@ -4,13 +4,4 @@ class PlayerController < ApplicationController
   def main
 
   end
-  
-  
-  
-  protected
-  
-  def authenticate_user
-    
-    # TODO
-  end
 end

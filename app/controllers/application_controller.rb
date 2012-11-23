@@ -34,4 +34,18 @@ class ApplicationController < ActionController::Base
   def user_signed_in?
     not current_user.nil?
   end
+  
+  def authenticate_user
+    unless user_signed_in?
+      # Clean up the session 
+      reset_session
+
+      # Log the error and inform the user 
+      logger.warn "[initialize_session] Trying to access site without signing in"
+      flash[:error] = "You must be signed in to use the player."
+      
+      # Go back to the home page
+      redirect_to root_url
+    end
+  end  
 end

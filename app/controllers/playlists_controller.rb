@@ -1,4 +1,6 @@
 class PlaylistsController < ApplicationController
+  before_filter :authenticate_user
+  
   # POST /playlists
   # POST /playlists.json
   def create
