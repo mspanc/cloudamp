@@ -3,6 +3,8 @@
 //= require jquery-ui
 //= require twitter/bootstrap/transition
 //= require twitter/bootstrap/modal
+//= require twitter/bootstrap/tab
+//= require twitter/bootstrap/tooltip
 //= require libraries/underscore-min
 //= require libraries/backbone-min
 
@@ -26,7 +28,9 @@
 //= require player/views/app
 
 
-$ ->     
+$ ->
   window.APP = new CloudAmp.Views.App
+  
+  $("a[rel=tooltip]").tooltip()
   
   

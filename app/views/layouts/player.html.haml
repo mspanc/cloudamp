@@ -12,7 +12,7 @@
   %body.player
     .container-fluid#app
       .row-fluid
-        .span4.sidepanel#panel_search
+        .span4.panel.sidepanel#panel_search
           .search-box
             .control-group
               .controls
@@ -25,11 +25,11 @@
             #panel_search_results.search-results
               %ul
           
-        .span6#panel_playlists
-          %nav#panel_playlists_tabs
-            %ul
-            %a.btn.btn-small#new_playlist_button
-              %i.icon-plus
+        .span6.panel.middlepanel#panel_playlists
+          %nav#panel_playlists_tabs.tabbable
+            %ul.nav.nav-tabs
+              %a.pull-right.btn.btn-small#new_playlist_button{ :rel => "tooltip", :title => "Add playlist", :"data-placement" => "bottom" }
+                %i.icon-plus
               
             #modal_new_playlist.modal.fade.hide{ :tabindex => -1, :role => "dialog", :"aria-labelledby" => "modal_new_playlist_title", :"aria-hidden" => "true" }
               .modal-header
@@ -68,7 +68,7 @@
           #panel_playlists_contents
           
           
-        .span2.sidepanel#panel_user_info
+        .span2.panel.sidepanel#panel_user_info
           Welcome
           =session[:soundcloud_username]
           =button_to "Sign out", session_path, :method => :delete, :class => "btn btn-block"
@@ -85,7 +85,7 @@
       .clearfix
       
     %script#playlist-tab-template{ :type => "text/template" }
-      .title
+      %a{ :href => "#playlist<%- id %>".html_safe, :"data-toggle" => "tab", :title => "<%- description %>".html_safe, :rel => "tooltip", :"data-placement" => "bottom" }
         <%- title %>
       
   

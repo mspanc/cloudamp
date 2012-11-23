@@ -17,13 +17,17 @@ $ ->
       
 
     render_one_playlist: (playlist) =>
-      view = new CloudAmp.Views.PlaylistTab({ model: playlist });
-      @$("#panel_playlists_tabs ul").append(view.render().el);
+      view   = new CloudAmp.Views.PlaylistTab({ model: playlist })
+      output = view.render().el
+      @$("#panel_playlists_tabs ul").append output
+      $(output).children("*[rel=tooltip]").tooltip()
       
       
     render_all_playlists: (playlists) =>
       playlists.each (playlist) =>
         @render_one_playlist playlist
+      
+      @$("#panel_playlists_tabs a[data-toggle=tab]:first").tab("show")
 
     
     show_new_playlist_modal: () ->
