@@ -17,6 +17,9 @@ class Playlist < ActiveRecord::Base
   before_destroy :ensure_we_dont_delete_last_playlist
   before_create  :set_last_position
   
+  scope :ordered,            :order => "position ASC"
+  scope :filtered_for_views, :select => [ :id, :title, :description ]
+  
   protected
   
   def set_last_position

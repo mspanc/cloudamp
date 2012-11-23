@@ -11,7 +11,7 @@
   %body.player
     .container-fluid#app
       .row-fluid
-        .span4.panel.panel-search
+        .span4.sidepanel#panel_search
           .search-box
             .control-group
               .controls
@@ -20,14 +20,18 @@
                     %i.icon-search
                   %input#search_field{ :type => "text", :placeholder => "user name, track name, URL..." }
                   %input#search_button.btn{ :type => "button", :value => "S" }
-        
-            .search-results
+
+            #panel_search_results.search-results
               %ul
           
+        .span6#panel_playlists
+          %nav#panel_playlists_tabs
+            %ul
+            
+          #panel_playlists_contents
           
-        .span6
-          Playlist will be here
-        .span2.panel.panel-user-info
+          
+        .span2.sidepanel#panel_user_info
           Welcome
           =session[:soundcloud_username]
           =button_to "Sign out", session_path, :method => :delete, :class => "btn btn-block"
@@ -40,3 +44,13 @@
       .title
         <%- title %>
       .clearfix
+      
+    %script#playlist-tab-template{ :type => "text/template" }
+      XXX
+      
+      
+  :javascript
+    $(function() {
+      window.APP.bootstrap_playlists(#{ @current_user.playlists.ordered.filtered_for_views.to_json.html_safe });
+    });
+  

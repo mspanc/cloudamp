@@ -3,7 +3,9 @@ $ ->
     el: $ "#app"
     
     initialize: ->
-      console.log("CloudAmp.Views.App init")
-      @search_view = new CloudAmp.Views.SearchPanel
+      @search_panel_view    = new CloudAmp.Views.SearchPanel
+      @playlists_panel_view = new CloudAmp.Views.PlaylistsPanel
     
-
+    
+    bootstrap_playlists: (playlists) ->
+      @playlists_panel_view.bootstrap(playlists)
