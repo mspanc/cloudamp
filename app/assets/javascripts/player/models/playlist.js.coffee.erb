@@ -3,3 +3,7 @@ class CloudAmp.Models.Playlist extends Backbone.Model
   
   initialize: ->
     @tracks = new CloudAmp.Models.TrackCollection
+    
+  teardown: ->
+    @tracks = null
+    

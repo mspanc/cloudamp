@@ -8,9 +8,11 @@
 //= require libraries/underscore-min
 //= require libraries/backbone-min
 
-//= require csrf
+//= require extensions/csrf
+//= require extensions/dom-to-backbone-view
+
 //= require namespaces
-//= require soundcloud
+//= require soundcloud-init
 
 //= require player/errors/collections
 //= require player/errors/variables

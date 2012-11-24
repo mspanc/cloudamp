@@ -6,6 +6,9 @@ $ ->
       @playlist_collection = new CloudAmp.Models.PlaylistCollection
       @playlist_collection.on 'reset', @render_all_playlists
       @playlist_collection.on 'add',   @render_one_playlist
+
+      @playlist_views = {}
+
       
     events:
       "click       #modal_new_playlist_submit" : "create_playlist"
@@ -45,9 +48,15 @@ $ ->
           
       
       # Show message about empty playlist if it is empty
-      if playlist.tracks.size() == 0
-        $(container_output).find(".message-empty").show()
+      container_view.update_empty_message()
+        
       
+
+      # Store references 
+      @playlist_views[playlist.id] = 
+        "tab"       : tab_view
+        "container" : container_view
+        
       
     render_all_playlists: (playlists) =>
       playlists.each (playlist) =>
@@ -91,10 +100,22 @@ $ ->
             @$("#modal_new_playlist button").attr "disabled", false
 
      
+    # Handles receiving a track drag'n'dropped from search results.
+    #
+    # @param event jQuery event
+    # @param ui object that describes this drag'n'drop action, please refer to 
+    #        http://api.jqueryui.com/sortable/#event-receive for more information
     receive_track: (event, ui) ->
-      console.log @
-      console.log "Got track!"
-      console.log event
-      console.log ui
-      console.log ui.item
- 
+      # Find model associated with dragged DOM element
+      model = ui.item.backboneView().model
+      
+      # Remove it model from search results collection
+      model.collection.remove model
+      
+      # Find ID of playlist that was used to drop the track
+      playlist_id = parseInt(ui.item.closest(".playlist-container").attr("playlist_id"))
+      
+      # Find tracks collection associated with this playlist and add new track
+      @playlist_views[playlist_id]["container"].model.tracks.add model
+      
+      
