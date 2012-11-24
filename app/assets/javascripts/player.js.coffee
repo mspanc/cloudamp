@@ -8,6 +8,7 @@
 //= require libraries/underscore-min
 //= require libraries/backbone-min
 //= require libraries/string
+//= require libraries/soundcloud-widget
 
 //= require extensions/csrf
 //= require extensions/dom-to-backbone-view

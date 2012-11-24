@@ -6,7 +6,7 @@
       
     =stylesheet_link_tag :player
     -if Rails.env == "development"
-      =javascript_include_tag "libraries/soundcloud"
+      =javascript_include_tag "libraries/soundcloud-sdk"
     -else
       =javascript_include_tag "http://connect.soundcloud.com/sdk.js"
     =javascript_include_tag :player
