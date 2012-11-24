@@ -6,7 +6,7 @@ class CloudAmp.Errors.VariableMustNotBeEmpty extends Error
     @message = "Variable " + variable_name + " must not be empty"
     
     
-class CloudAmp.Errors.OptionMissong extends Error
+class CloudAmp.Errors.OptionMissing extends Error
   name:    "CloudAmp.Errors.OptionMissing"
   message: "Option is missing"
   

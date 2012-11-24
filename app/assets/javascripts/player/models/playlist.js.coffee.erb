@@ -1,2 +1,5 @@
 class CloudAmp.Models.Playlist extends Backbone.Model
   url: "<%= JS.escape(Rails.application.routes.url_helpers.playlists_path) %>"
+  
+  initialize: ->
+    @tracks = new CloudAmp.Models.TrackCollection

@@ -21,10 +21,11 @@
 //= require player/models/playlist
 //= require player/models/playlist_collection
 
-//= require player/views/search_result
-//= require player/views/search_panel
+//= require player/views/track
 //= require player/views/playlist_tab
 //= require player/views/playlist_container
+
+//= require player/views/search_panel
 //= require player/views/playlists_panel
 
 //= require player/views/app
@@ -33,6 +34,6 @@
 $ ->
   window.APP = new CloudAmp.Views.App
   
-  $("a[rel=tooltip]").tooltip()
+  $("*[rel=tooltip]").tooltip()
   
   

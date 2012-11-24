@@ -18,14 +18,35 @@ $ ->
       
 
     render_one_playlist: (playlist) =>
+      # Render playlist's tab
       tab_view   = new CloudAmp.Views.PlaylistTab({ model: playlist })
       tab_output = tab_view.render().el
-      @$("#panel_playlists_tabs ul").append tab_output
-      $(tab_output).children("*[rel=tooltip]").tooltip()
 
+      # Append playlist's tab to DOM
+      @$("#panel_playlists_tabs ul").append tab_output
+
+      # Enable tooltips with playlists' descriptions
+      $(tab_output).children("a[rel=tooltip]").tooltip()
+
+
+      # Render playlist contents's container
       container_view   = new CloudAmp.Views.PlaylistContainer({ model: playlist })
       container_output = container_view.render().el
+
+      # Append playlist contents's to DOM
       @$("#panel_playlists_contents").append container_output
+
+      # Enable drag'n'drop
+      $(container_output).find("tbody")
+        .disableSelection()
+        .sortable
+          connectWith : ".playlist-dragndrop"
+          items       : ">*:not(.message-empty)"
+          
+      
+      # Show message about empty playlist if it is empty
+      if playlist.tracks.size() == 0
+        $(container_output).find(".message-empty").show()
       
       
     render_all_playlists: (playlists) =>
@@ -71,6 +92,7 @@ $ ->
 
      
     receive_track: (event, ui) ->
+      console.log @
       console.log "Got track!"
       console.log event
       console.log ui

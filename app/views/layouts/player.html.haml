@@ -5,16 +5,24 @@
       ="#{session[:soundcloud_username]}'s CloudAmp"
       
     =stylesheet_link_tag :player
-    =javascript_include_tag "http://connect.soundcloud.com/sdk.js"
+    -if Rails.env == "development"
+      =javascript_include_tag "libraries/soundcloud"
+    -else
+      =javascript_include_tag "http://connect.soundcloud.com/sdk.js"
     =javascript_include_tag :player
     =csrf_meta_tag
   
   %body.player
     .container-fluid#app
       .row-fluid
+        =render :partial => "modal_playlist_form"
+
         =render :partial => "panel_search"
         =render :partial => "panel_playlists"
         =render :partial => "panel_user_info"
+
+        =render :partial => "templates_tracks"
+        =render :partial => "templates_playlists"
 
   
   :javascript

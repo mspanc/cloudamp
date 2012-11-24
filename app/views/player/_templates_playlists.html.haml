@@ -3,4 +3,12 @@
     <%- title %>
   
 %script#playlist-container-template{ :type => "text/template" }
-  %ul.playlist-dragndrop
+  %table
+    %tbody.playlist-dragndrop
+      %tr.message-empty.hide
+        %td{ :colspan => 4 }
+          .text
+            %p
+              This playlist is empty. 
+            %p
+              Use search to find tracks and drag'n'drop them here.

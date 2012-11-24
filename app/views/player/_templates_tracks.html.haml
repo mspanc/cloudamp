@@ -1,0 +1,11 @@
+%script#track-template{ :type => "text/template" }
+  %td.artwork
+    %img{ :src => "<%- artwork_url %>".html_safe, :alt => "" }
+  %td.title
+    <%- title %>
+  %td.duration
+    00:00:00
+  %td.actions
+    %a.btn.btn-small.action-play
+      %i.icon-play
+

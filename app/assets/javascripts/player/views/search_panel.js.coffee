@@ -18,10 +18,10 @@ $ ->
       
     render_search_results: (results) ->
       results.each (result) ->
-        view = new CloudAmp.Views.SearchResult({ model: result });
-        @$("#panel_search_results ul").append(view.render().el);
+        view = new CloudAmp.Views.Track({ model: result });
+        @$("#panel_search_results tbody").append(view.render().el);
     
-        $("#panel_playlists_contents ul, #panel_search_results ul")
+        $("#panel_search_results tbody")
           .disableSelection()
           .sortable
             connectWith : ".playlist-dragndrop"

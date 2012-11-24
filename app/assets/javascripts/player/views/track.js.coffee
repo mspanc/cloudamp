@@ -1,9 +1,8 @@
 $ ->
-  class CloudAmp.Views.SearchResult extends Backbone.View
-    template   : _.template($('#search-result-template').html()),
-    tagName    : "li"
-    attributes : =>
-      track_url : @model.get("track_url")
+  class CloudAmp.Views.Track extends Backbone.View
+    template   : _.template($('#track-template').html()),
+    tagName    : "tr"
+    className  : "track"
     
     initialize: ->
       @model.on "destroy", @remove
