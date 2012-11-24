@@ -3,7 +3,9 @@ class CreateTracks < ActiveRecord::Migration
     create_table :tracks do |t|
       t.belongs_to :playlist,        :null => false
       t.string     :title,           :null => false
+      t.string     :artwork_url,     :null => false
       t.string     :track_url,       :null => false
+      t.string     :duration,        :null => false
       t.integer    :position,        :null => false, :default => 0
 
       t.timestamps

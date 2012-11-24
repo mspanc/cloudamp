@@ -27,7 +27,9 @@ ActiveRecord::Schema.define(:version => 20121124132857) do
   create_table "tracks", :force => true do |t|
     t.integer  "playlist_id",                :null => false
     t.string   "title",                      :null => false
+    t.string   "artwork_url",                :null => false
     t.string   "track_url",                  :null => false
+    t.string   "duration",                   :null => false
     t.integer  "position",    :default => 0, :null => false
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false

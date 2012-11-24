@@ -18,6 +18,9 @@ $ ->
     
     bootstrap: (initial_data) ->
       @playlist_collection.reset initial_data
+      @playlist_collection.each (playlist) =>
+        playlist.tracks.reset playlist.get("tracks")
+        playlist.unset("tracks")
       
 
     render_one_playlist: (playlist) =>
@@ -112,8 +115,9 @@ $ ->
       # Remove it model from search results collection
       model.collection.remove model
       
-      # Find ID of playlist that was used to drop the track
+      # Find ID of playlist that was used to drop the track and add it to the model
       playlist_id = parseInt(ui.item.closest(".playlist-container").attr("playlist_id"))
+      model.set "playlist_id", playlist_id
       
       # Find tracks collection associated with this playlist and add new track
       @playlist_views[playlist_id]["container"].model.tracks.add model

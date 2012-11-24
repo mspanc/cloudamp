@@ -1,4 +1,6 @@
 class CloudAmp.Models.TrackCollection extends Backbone.Collection
+  url: "<%= JS.escape(Rails.application.routes.url_helpers.tracks_path) %>"
+
   model: CloudAmp.Models.Track
 
 

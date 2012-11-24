@@ -5,7 +5,7 @@ class Playlist < ActiveRecord::Base
   attr_accessible :title, :description, :position
   
   belongs_to :user
-  has_many   :tracks, :dependent => :destroy
+  has_many   :tracks,  :order => "position ASC", :dependent => :destroy
   
   validates :user,     :presence     => true
   validates :title,    :presence     => true,
@@ -19,7 +19,7 @@ class Playlist < ActiveRecord::Base
   before_validation :set_last_position, :on => :create
   
   scope :ordered,            :order => "position ASC"
-  scope :filtered_for_views, :select => [ :id, :title, :description ]
+  
   
   protected
   

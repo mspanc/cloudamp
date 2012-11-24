@@ -1,54 +1,24 @@
 class TracksController < ApplicationController
-  # GET /tracks
-  # GET /tracks.json
-  def index
-    @tracks = Track.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tracks }
-    end
-  end
-
-  # GET /tracks/1
-  # GET /tracks/1.json
-  def show
-    @track = Track.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @track }
-    end
-  end
-
-  # GET /tracks/new
-  # GET /tracks/new.json
-  def new
-    @track = Track.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @track }
-    end
-  end
-
-  # GET /tracks/1/edit
-  def edit
-    @track = Track.find(params[:id])
-  end
-
+  before_filter :authenticate_user
+  
   # POST /tracks
   # POST /tracks.json
   def create
     @track = Track.new(params[:track])
+    
+    if @track.playlist.user != current_user
+      logger.warn "[tracks] Attempt to create Track that will belong to Playlist ##{params[:track][:playlist_id]} without permission"
+      respond_to do |format|
+        format.json { head :forbidden }
+      end
 
-    respond_to do |format|
-      if @track.save
-        format.html { redirect_to @track, notice: 'Track was successfully created.' }
-        format.json { render json: @track, status: :created, location: @track }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @track.errors, status: :unprocessable_entity }
+    else
+      respond_to do |format|
+        if @track.save
+          format.json { render json: @track, status: :created, location: @track }
+        else
+          format.json { render json: @track.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -58,13 +28,18 @@ class TracksController < ApplicationController
   def update
     @track = Track.find(params[:id])
 
-    respond_to do |format|
-      if @track.update_attributes(params[:track])
-        format.html { redirect_to @track, notice: 'Track was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @track.errors, status: :unprocessable_entity }
+    if @track.playlist.user != current_user
+      logger.warn "[tracks] Attempt to update Track ##{params[:id]} that belongs to Playlist ##{@track.playlist.id} without permission"
+      respond_to do |format|
+        format.json { head :forbidden }
+      end
+    else
+      respond_to do |format|
+        if @track.update_attributes(params[:track])
+          format.json { head :no_content }
+        else
+          format.json { render json: @track.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -73,11 +48,18 @@ class TracksController < ApplicationController
   # DELETE /tracks/1.json
   def destroy
     @track = Track.find(params[:id])
-    @track.destroy
 
-    respond_to do |format|
-      format.html { redirect_to tracks_url }
-      format.json { head :no_content }
+    if @track.playlist.user != current_user
+      logger.warn "[tracks] Attempt to delete Track ##{params[:id]} that belongs to Playlist ##{@track.playlist.id} without permission"
+      respond_to do |format|
+        format.json { head :forbidden }
+      end
+    else
+      @track.destroy
+
+      respond_to do |format|
+        format.json { head :no_content }
+      end
     end
   end
 end

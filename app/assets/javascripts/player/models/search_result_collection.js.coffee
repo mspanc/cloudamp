@@ -27,10 +27,11 @@ class CloudAmp.Models.SearchResultCollection extends Backbone.Collection
 #        artwork_url : track.artwork_url
 #        title       : track.title
 #        track_url   : track.uri
+#        duration    : track.duration
 #    
 #      # Notify that we had successfully fetched search results
 #      options.success stripped_tracks
 
-      options.success [{ artwork_url : "http://i1.sndcdn.com/artworks-000009071938-r6wua2-large.jpg?80d2906", title : "Katy Perry", track_url: "http://123" }, { artwork_url : "http://i1.sndcdn.com/artworks-000018747391-0w3itu-large.jpg?80d2906", title : "Katy fas12378", track_url: "http://123" }, { artwork_url : "http://i1.sndcdn.com/artworks-000010597607-rv7406-large.jpg?80d2906", title : "XjDHASJKJK", track_url: "http://123" } ]
+      options.success [{ artwork_url : "http://i1.sndcdn.com/artworks-000009071938-r6wua2-large.jpg?80d2906", title : "Katy Perry", track_url: "http://123", duration : "12:34:56" }, { artwork_url : "http://i1.sndcdn.com/artworks-000018747391-0w3itu-large.jpg?80d2906", title : "Katy fas12378", track_url: "http://123", duration : "12:34:56" }, { artwork_url : "http://i1.sndcdn.com/artworks-000010597607-rv7406-large.jpg?80d2906", title : "XjDHASJKJK", track_url: "http://123", duration : "12:34:56" } ]
       
 

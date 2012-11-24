@@ -27,6 +27,8 @@
   
   :javascript
     $(function() {
-      window.APP.bootstrap_playlists(#{ @current_user.playlists.ordered.filtered_for_views.to_json.html_safe });
+      window.APP.bootstrap_playlists(
+        #{ @current_user.playlists.ordered.includes(:tracks).to_json( :only => [ :id, :title, :description ], :include => { :tracks => { :only => [ :id, :title, :track_url, :artwork_url, :position ] } } ).html_safe }
+      );
     });
   
