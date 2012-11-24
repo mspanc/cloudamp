@@ -5,14 +5,24 @@ $ ->
     className  : "track"
     
     initialize: ->
-      @model.on "destroy", @remove
+      @model.on "destroy", @remove, @
       
     teardown: ->
-      @model.off "destroy", @remove
+      @model.off "destroy", @remove, @
       
+
+    events:
+      "click .action-remove a": "clear"
+
     
+    clear: ->
+      @model.clear()
+    
+
     render: ->
       @$el.html(@template(@model.toJSON()))
-      
+      @$("*[rel=tooltip]").tooltip()      
       return @
       
+      
+

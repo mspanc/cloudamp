@@ -44,8 +44,6 @@ $ ->
       output = view.render().el
       @$("tbody").append(output);
 
-      # Enable tooltips with playlists' descriptions
-      $(output).find("*[rel=tooltip]").tooltip()
       
 
     render_all_tracks: (tracks) =>
