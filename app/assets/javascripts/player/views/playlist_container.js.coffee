@@ -67,7 +67,7 @@ $ ->
       @$(".track").each (i, element) -> 
         $(element).backboneView().model.save
           success: =>
-            console.log "SUCCESS"
+            console.log "SUCCESS" # TODO
           error: =>
             console.log "ErROR"
       

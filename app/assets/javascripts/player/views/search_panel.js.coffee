@@ -3,7 +3,7 @@ $ ->
     el: $ "#panel_search"
     
     events:
-      'click #search_button' : 'perform_search'
+      "click #search_button" : "perform_search"
       
     initialize: ->
       @search_result_collection = new CloudAmp.Models.SearchResultCollection
