@@ -7,6 +7,7 @@
 //= require twitter/bootstrap/tooltip
 //= require libraries/underscore-min
 //= require libraries/backbone-min
+//= require libraries/string
 
 //= require extensions/csrf
 //= require extensions/dom-to-backbone-view
