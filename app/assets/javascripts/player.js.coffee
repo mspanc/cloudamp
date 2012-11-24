@@ -23,6 +23,7 @@
 //= require player/views/search_result
 //= require player/views/search_panel
 //= require player/views/playlist_tab
+//= require player/views/playlist_container
 //= require player/views/playlists_panel
 
 //= require player/views/app

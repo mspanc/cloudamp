@@ -1,7 +1,7 @@
 $ ->
   class CloudAmp.Views.PlaylistTab extends Backbone.View
-    tagName: "li"
     template : _.template($('#playlist-tab-template').html()),
+    tagName  : "li"
     
     initialize: ->
       @model.on "destroy", @remove

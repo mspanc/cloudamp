@@ -1,0 +1,5 @@
+.span2.panel.sidepanel#panel_user_info
+  Welcome
+  =session[:soundcloud_username]
+  =button_to "Sign out", session_path, :method => :delete, :class => "btn btn-block"
+
