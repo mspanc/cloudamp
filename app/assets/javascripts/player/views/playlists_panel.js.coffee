@@ -48,6 +48,8 @@ $ ->
         .sortable
           connectWith : ".playlist-dragndrop"
           items       : ">*:not(.message-empty)"
+          appendTo    : "#app"
+          helper      : "clone"
           
       
       # Show message about empty playlist if it is empty

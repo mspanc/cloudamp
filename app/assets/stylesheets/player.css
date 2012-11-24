@@ -32,8 +32,14 @@ html, body.player {
 .top {
   background: #000;
   color: #fff;
-  height: 60px;
   overflow: hidden;
+
+  position: absolute;
+
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 60px;
 }
 
 .top .logo {
@@ -70,10 +76,88 @@ html, body.player {
 
 
 
+/* Main app layout */
+
+.main {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
 
 
+/* Search panel */
+
+#panel_search {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 35%;  
+}
 
 
+#panel_search .search-box {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  right: 14px;
+  height: 40px;
+}
+
+#panel_search .search-results {
+  position: absolute;
+  left: 14px;
+  top: 54px;
+  right: 14px;
+  bottom: 14px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+/* Playlists panel */
+
+#panel_playlists {
+  position: absolute;
+  left: 35%;
+  top: 0;
+  bottom: 0;
+  right: 0;  
+}
+
+#panel_playlists_tabs {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  right: 14px;
+  height: 40px;
+}
+
+#panel_playlists_contents {
+  position: absolute;
+  left: 14px;
+  top: 54px;
+  right: 14px;
+  bottom: 14px;
+}
+
+#panel_playlists_contents .tab-pane {
+  background: yellow;
+}
+
+#panel_playlists_contents .tab-pane table {
+  width: 100%;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;  
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
 /* Tracks */
 tr.track td {
@@ -105,36 +189,19 @@ tr.track td.action {
 
 
 
-/* Search results should fill the window */
-#panel_search table {
-  width: 100%;
-}
-
-
 /* Track remove icon should be visible only in playlist view and hidden while drag'n'drop */
 #panel_search td.action-remove {
   display: none;
+}
+
+.track.ui-sortable-helper {
+  background: #f0f0f0;
 }
 
 .track.ui-sortable-helper td.action, .track.ui-sortable-helper td.duration {
   display: none;
 }
 
-
-/* Playlists should fill the window */
-#panel_playlists .tab-content, #panel_playlists .tab-panel {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-#panel_playlists_contents .tab-pane {
-  height: 100%;
-}
-
-#panel_playlists_contents table, #panel_playlists_contents tbody {
-  width: 100%;
-}
 
 
 /* Message about empty playlist */

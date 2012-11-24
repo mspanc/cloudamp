@@ -12,11 +12,11 @@
     =javascript_include_tag :player
     =csrf_meta_tag
   
-  %body.player
+  %body.player#app
     .top
       =render :partial => "panel_user_info"
 
-    .main#app
+    .main
       =render :partial => "panel_search"
       =render :partial => "panel_playlists"
 
