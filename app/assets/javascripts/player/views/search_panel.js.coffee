@@ -21,6 +21,7 @@ $ ->
         view = new CloudAmp.Views.Track({ model: result });
         @$("#panel_search_results tbody").append(view.render().el);
     
+        # FIXME probably can be called only once?
         $("#panel_search_results tbody")
           .disableSelection()
           .sortable

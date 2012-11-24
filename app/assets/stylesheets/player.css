@@ -57,18 +57,27 @@ tr.track td.duration {
   text-align: right;
 }
 
-tr.track td.actions {
+tr.track td.action {
   width: 40px;
+  padding: 2px;
 }
 
-.track.ui-sortable-helper td.actions, .track.ui-sortable-helper td.duration {
-  display: none;
-}
+
 
 
 /* Search results should fill the window */
 #panel_search table {
   width: 100%;
+}
+
+
+/* Track remove icon should be visible only in playlist view and hidden while drag'n'drop */
+#panel_search td.action-remove {
+  display: none;
+}
+
+.track.ui-sortable-helper td.action, .track.ui-sortable-helper td.duration {
+  display: none;
 }
 
 
