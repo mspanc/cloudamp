@@ -5,6 +5,7 @@ class Playlist < ActiveRecord::Base
   attr_accessible :title, :description, :position
   
   belongs_to :user
+  has_many   :tracks, :dependent => :destroy
   
   validates :user,     :presence     => true
   validates :title,    :presence     => true,

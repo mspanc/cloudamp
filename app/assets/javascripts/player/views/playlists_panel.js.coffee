@@ -8,8 +8,9 @@ $ ->
       @playlist_collection.on 'add',   @render_one_playlist
       
     events:
-      "click #modal_new_playlist_submit" : "create_playlist"
-      "click #new_playlist_button"       : "show_new_playlist_modal"
+      "click       #modal_new_playlist_submit" : "create_playlist"
+      "click       #new_playlist_button"       : "show_new_playlist_modal"
+      "sortreceive .playlist-dragndrop"        : "receive_track"
       
     
     bootstrap: (initial_data) ->
@@ -69,3 +70,9 @@ $ ->
             @$("#modal_new_playlist button").attr "disabled", false
 
      
+    receive_track: (event, ui) ->
+      console.log "Got track!"
+      console.log event
+      console.log ui
+      console.log ui.item
+ 

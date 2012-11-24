@@ -21,4 +21,8 @@ $ ->
         view = new CloudAmp.Views.SearchResult({ model: result });
         @$("#panel_search_results ul").append(view.render().el);
     
-
+        $("#panel_playlists_contents ul, #panel_search_results ul")
+          .disableSelection()
+          .sortable
+            connectWith : ".playlist-dragndrop"
+          

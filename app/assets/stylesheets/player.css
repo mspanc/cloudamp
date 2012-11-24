@@ -3,46 +3,77 @@
  *= require_self
  */
 
-/* Reset default Bootstrap padding for container */
+
+/* GENERAL TWEAKS */
 .container-fluid {
   padding: 0;
 }
 
-
-/* Panels */
-.panel {
-  padding: 1em;
-}
-
-
-/* Forms */
-.errorneous {
-  color: #cc0000 !important;
-}
-
-
-/* Search */
-.search-results ul {
+ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.search-results li {
+
+/* Make app fullscreen */
+html, body.player, .container-fluid, .row-fluid, .panel {
+  height: 100%;
+  overflow: hidden;
+}
+
+
+
+
+/* ALL FORMS */
+.errorneous {
+  color: #cc0000 !important;
+}
+
+
+/* ALL PANELS */
+.panel {
+  padding: 1em;
+}
+
+
+/* SEARCH PANEL */
+
+#panel_search .search-results li {
   clear: left;
   margin-bottom: 8px;
 }
 
-.search-results .artwork {
+#panel_search .search-results li:hover {
+  background: #f0f0f0;
+  cursor: move;
+}
+
+#panel_search .search-results .artwork {
   float: left;
 }
 
-.search-results .artwork img {
+#panel_search .search-results .artwork img {
   width: 24px;
   height: 24px;
 }
 
-.search-results .title {
+#panel_search .search-results .title {
   padding-left: 44px;
 }
+
+
+/* PLAYLIST PANEL */
+
+/* Playlists should fill vertically the window */
+#panel_playlists .tab-content, #panel_playlists .tab-panel {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#panel_playlists_contents .tab-pane, #panel_playlists_contents ul {
+  height: 100%;
+}
+
 

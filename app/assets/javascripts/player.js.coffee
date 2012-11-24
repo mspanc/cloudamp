@@ -15,7 +15,8 @@
 //= require player/errors/collections
 //= require player/errors/variables
 
-//= require player/models/search_result
+//= require player/models/track
+//= require player/models/track_collection
 //= require player/models/search_result_collection
 //= require player/models/playlist
 //= require player/models/playlist_collection
