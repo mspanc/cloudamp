@@ -4,14 +4,16 @@ class PlaylistsController < ApplicationController
   # POST /playlists
   # POST /playlists.json
   def create
-    @playlist = Playlist.new(params[:playlist])
-    @playlist.user = current_user
+    Playlist.transaction do
+      @playlist = Playlist.new(params[:playlist])
+      @playlist.user = current_user
 
-    respond_to do |format|
-      if @playlist.save
-        format.json { render json: @playlist, status: :created, location: @playlist }
-      else
-        format.json { render json: @playlist.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @playlist.save
+          format.json { render json: @playlist, status: :created, location: @playlist }
+        else
+          format.json { render json: @playlist.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -19,19 +21,21 @@ class PlaylistsController < ApplicationController
   # PUT /playlists/1
   # PUT /playlists/1.json
   def update
-    @playlist = Playlist.find(params[:id])
+    Playlist.transaction do
+      @playlist = Playlist.find(params[:id])
 
-    if @playlist.user != current_user
-      logger.warn "[playlists] Attempt to update Playlist ##{params[:id]} without permission"
-      respond_to do |format|
-        format.json { head :forbidden }
-      end
-    else
-      respond_to do |format|
-        if @playlist.update_attributes(params[:playlist])
-          format.json { head :no_content }
-        else
-          format.json { render json: @playlist.errors, status: :unprocessable_entity }
+      if @playlist.user != current_user
+        logger.warn "[playlists] Attempt to update Playlist ##{params[:id]} without permission"
+        respond_to do |format|
+          format.json { head :forbidden }
+        end
+      else
+        respond_to do |format|
+          if @playlist.update_attributes(params[:playlist])
+            format.json { head :no_content }
+          else
+            format.json { render json: @playlist.errors, status: :unprocessable_entity }
+          end
         end
       end
     end
@@ -40,19 +44,21 @@ class PlaylistsController < ApplicationController
   # DELETE /playlists/1
   # DELETE /playlists/1.json
   def destroy
-    @playlist = Playlist.find(params[:id])
+    Playlist.transaction do
+      @playlist = Playlist.find(params[:id])
 
-    if @playlist.user != current_user
-      logger.warn "[playlists] Attempt to delete Playlist ##{params[:id]} without permission"
-      respond_to do |format|
-        format.json { head :forbidden }
-      end
-    
-    else
-      @playlist.destroy
+      if @playlist.user != current_user
+        logger.warn "[playlists] Attempt to delete Playlist ##{params[:id]} without permission"
+        respond_to do |format|
+          format.json { head :forbidden }
+        end
+      
+      else
+        @playlist.destroy
 
-      respond_to do |format|
-        format.json { head :no_content }
+        respond_to do |format|
+          format.json { head :no_content }
+        end
       end
     end
   end
