@@ -1,13 +1,11 @@
-.span4.panel.sidepanel#panel_search
+.panel.sidepanel#panel_search
   .search-box
-    .control-group
-      .controls
-        .input-prepend
-          %span.add-on
-            %i.icon-search
-          %input#search_field{ :type => "text", :placeholder => "user name, track name, URL..." }
-          %input#search_button.btn{ :type => "button", :value => "S" }
+    .input-append
+      %input#search_field{ :type => "text", :placeholder => "user name, track name, URL..." }
+      %a.add-on.btn#search_button.btn{ :type => "button" }
+        %i.icon-search
 
-    %table#panel_search_results.search-results
+  .search-results#panel_search_results
+    %table
       %tbody.playlist-dragndrop
 

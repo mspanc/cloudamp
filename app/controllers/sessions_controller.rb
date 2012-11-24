@@ -43,7 +43,8 @@ class SessionsController < ApplicationController
     current_user = User.find_or_create_by_soundcloud_id me.id
 
     # Store necessary user information
-    session[:soundcloud_username] = me.username
+    session[:soundcloud_username]   = me.username
+    session[:soundcloud_avatar_url] = me.avatar_url
     session[:user_id] = current_user.id
     
     # Redirect to the main player view

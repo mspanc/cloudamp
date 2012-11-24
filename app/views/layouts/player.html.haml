@@ -13,22 +13,25 @@
     =csrf_meta_tag
   
   %body.player
-    .container-fluid#app
-      .row-fluid
-        =render :partial => "modal_playlist_form"
+    .top
+      =render :partial => "panel_user_info"
 
-        =render :partial => "panel_search"
-        =render :partial => "panel_playlists"
-        =render :partial => "panel_user_info"
+    .main#app
+      =render :partial => "panel_search"
+      =render :partial => "panel_playlists"
 
-        =render :partial => "templates_tracks"
-        =render :partial => "templates_playlists"
 
+    .templates
+      =render :partial => "templates_tracks"
+      =render :partial => "templates_playlists"
+
+    .modals
+      =render :partial => "modal_playlist_form"
   
   :javascript
     $(function() {
       window.APP.bootstrap_playlists(
-        #{ @current_user.playlists.ordered.includes(:tracks).to_json( :only => [ :id, :title, :description ], :include => { :tracks => { :only => [ :id, :title, :track_url, :artwork_url, :position ] } } ).html_safe }
+        #{ @current_user.playlists.ordered.includes(:tracks).to_json( :only => [ :id, :title, :description ], :include => { :tracks => { :only => [ :id, :title, :track_url, :artwork_url, :position, :duration ] } } ).html_safe }
       );
     });
   

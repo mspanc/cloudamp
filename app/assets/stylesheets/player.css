@@ -2,12 +2,9 @@
  *= require twitter/bootstrap
  *= require_self
  */
+ 
 
-
-/* GENERAL TWEAKS */
-.container-fluid {
-  padding: 0;
-}
+/* Common tweaks */
 
 ul {
   list-style-type: none;
@@ -16,8 +13,7 @@ ul {
 }
 
 
-/* Make app fullscreen */
-html, body.player, .container-fluid, .row-fluid, .panel {
+html, body.player {
   height: 100%;
   overflow: hidden;
 }
@@ -29,10 +25,54 @@ html, body.player, .container-fluid, .row-fluid, .panel {
 }
 
 
-/* All panels */
-.panel {
-  padding: 1em;
+
+
+/* Top bar */
+
+.top {
+  background: #000;
+  color: #fff;
+  height: 60px;
+  overflow: hidden;
 }
+
+.top .logo {
+  margin-left: 14px;
+  margin-top: 10px;
+  font-size: 28pt;
+  font-weight: normal;
+  color: #C11C0C;
+}
+
+.top .authentication {
+  margin-right: 14px;
+  margin-top: 16px;
+}
+
+.top .authentication form, .top .authentication form div {
+  display: inline;
+}
+
+.top .authentication .btn {
+  margin-left: 14px;
+}
+
+.top .authentication .username {
+  font-weight: bold;
+}
+
+.top .authentication img {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+  margin-left: 6px;
+}
+
+
+
+
+
+
 
 
 /* Tracks */

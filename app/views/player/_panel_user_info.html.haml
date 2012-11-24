@@ -1,5 +1,11 @@
-.span2.panel.sidepanel#panel_user_info
-  Welcome
-  =session[:soundcloud_username]
-  =button_to "Sign out", session_path, :method => :delete, :class => "btn btn-block"
+%h1.logo.pull-left
+  CloudAmp
+
+.authentication.pull-right
+  You are using CloudAmp as 
+  =image_tag session[:soundcloud_avatar_url], :alt => ""
+  %span.username
+    =session[:soundcloud_username]
+
+  =button_to "Sign out", session_path, :method => :delete, :class => "btn"
 
