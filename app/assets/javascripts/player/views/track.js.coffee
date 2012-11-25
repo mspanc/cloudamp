@@ -10,6 +10,8 @@ $ ->
     tagName    : "tr"
     className  : "track"
     state      : Track.State.STOPPED
+    attributes : ->
+      track_url : @model.get("track_url")
     
     initialize: ->
       @model.on "destroy", @remove, @
@@ -62,12 +64,15 @@ $ ->
       @$("td.action a").attr("disabled", false)
         
 
-    set_row_appearance: (new_class) ->
+    set_row_appearance: (new_class = null) ->
       @$el
         .removeClass("playing")
         .removeClass("loading")
         .removeClass("paused")
-        .addClass(new_class)
+        
+      if new_class != null
+        @$el
+          .addClass(new_class)
 
     set_play_action_icon: (new_icon) ->
       @$("td.action-play i")
@@ -91,6 +96,11 @@ $ ->
         when Track.State.STOPPED
           # Disable action buttons to prevent multiple clicking
           @disable_action_buttons()
+
+          # Find existing loading tracks and stop them
+          $(".track.loading").each (i, track) -> 
+            $(track).backboneView().mark_as_stopped()
+
 
           # Set appeareance - background should indicate that we are loading
           # and action buttons should indicate the same
@@ -147,4 +157,19 @@ $ ->
       @enable_action_buttons()
 
       @state = Track.State.PAUSED
+      
+      
+    mark_as_stopped: ->
+      throw new CloudAmp.Errors.InvalidTrackStateTransition(@state, Track.State.STOPPED) if @state == Track.State.STOPPED
+      
+      # Set proper appeareance
+      @set_row_appearance(null)
+      @set_play_action_icon("play")
+      @set_play_action_tooltip("Play this track")
+
+      @enable_action_buttons()
+
+      @state = Track.State.STOPPED
+      
+    
 
