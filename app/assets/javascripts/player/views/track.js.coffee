@@ -1,8 +1,15 @@
 $ ->
   class CloudAmp.Views.Track extends Backbone.View
+    @State     :
+      STOPPED  : 0
+      LOADING  : 1
+      PLAYING  : 2
+      PAUSED   : 3
+      
     template   : _.template($('#track-template').html()),
     tagName    : "tr"
     className  : "track"
+    state      : Track.State.STOPPED
     
     initialize: ->
       @model.on "destroy", @remove, @
@@ -13,7 +20,7 @@ $ ->
 
     events:
       "click .action-remove a" : "clear"
-      "click .action-play a"   : "play"
+      "click .action-play a"   : "invoke_playback_or_pause"
 
     
     clear: ->
@@ -44,15 +51,100 @@ $ ->
         
       return @
       
-      
-    play: ->
-      @$("td.action a")
-        .attr("disabled", true)
+
+    action_buttons_are_disabled: ->
+      @$("td.action a:first").attr("disabled") == "disabled"
+
+    disable_action_buttons: ->
+      @$("td.action a").attr("disabled", true)
+
+    enable_action_buttons: ->
+      @$("td.action a").attr("disabled", false)
         
+
+    set_row_appearance: (new_class) ->
+      @$el
+        .removeClass("playing")
+        .removeClass("loading")
+        .removeClass("paused")
+        .addClass(new_class)
+
+    set_play_action_icon: (new_icon) ->
       @$("td.action-play i")
+        .removeClass("icon-spinner")
+        .removeClass("icon-pause")
         .removeClass("icon-play")
-        .addClass("icon-spinner")
+        .addClass("icon-" + new_icon)
       
-      SC.oEmbed @model.get("track_url"), { auto_play : true }, (oEmbed) ->
-        $("#panel_player .embed").html oEmbed.html
+
+    set_play_action_tooltip: (new_text) ->
+      @$("td.action-play a").attr("data-original-title", new_text)
+    
+    
+    
+    
+
+    invoke_playback_or_pause: ->
+      return if @action_buttons_are_disabled()
       
+      switch @state
+        when Track.State.STOPPED
+          # Disable action buttons to prevent multiple clicking
+          @disable_action_buttons()
+
+          # Set appeareance - background should indicate that we are loading
+          # and action buttons should indicate the same
+          @set_row_appearance("loading")
+          @set_play_action_icon("spinner")
+          @set_play_action_tooltip("This track is loading...")
+
+
+          # Start playback
+          window.APP.play_track(@model.get("track_url"))
+          
+          # Save state
+          @state = Track.State.LOADING
+          
+
+        when Track.State.PAUSED
+          # Disable action buttons to prevent multiple clicking
+          @disable_action_buttons()
+          
+          
+          # Pause playback
+          window.APP.resume_track()
+
+
+        when Track.State.PLAYING
+          # Disable action buttons to prevent multiple clicking
+          @disable_action_buttons()
+          
+          # Pause playback
+          window.APP.pause_track()
+
+
+      
+    mark_as_playing: ->
+      throw new CloudAmp.Errors.InvalidTrackStateTransition(@state, Track.State.PLAYING) if @state != Track.State.LOADING and @state != Track.State.PAUSED
+      
+      # Set proper appeareance
+      @set_row_appearance("playing")
+      @set_play_action_icon("pause")
+      @set_play_action_tooltip("Pause this track")
+        
+      @enable_action_buttons()
+      @state = Track.State.PLAYING
+      
+      
+    mark_as_paused: ->
+      throw new CloudAmp.Errors.InvalidTrackStateTransition(@state, Track.State.PAUSED) if @state != Track.State.PLAYING
+
+      # Set proper appeareance
+      @set_row_appearance("paused")
+      @set_play_action_icon("play")
+      @set_play_action_tooltip("Resume playback of this track")
+
+      @enable_action_buttons()
+
+      @state = Track.State.PAUSED
+

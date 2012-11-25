@@ -16,6 +16,10 @@ $flat_widget_height: 37px;
 $search_button_width_total: 28px;
 $search_button_width_without_padding: 16px;
 
+$track_loading_background: #FCFCA6;
+$track_playing_background: #ADFEA5;
+$track_paused_background: #A5E3FE;
+
 /* Common tweaks */
 ul {
   list-style-type: none;
@@ -192,6 +196,10 @@ html, body.player {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     
     transition: border linear 0.2s, box-shadow linear 0.2s;
+    
+    table {
+      width: 100%;    
+    }
   }
 }
 
@@ -276,6 +284,29 @@ tr.track:hover {
   background: #f0f0f0;
 }
 
+tr.track.loading {
+  background: $track_loading_background;
+}
+
+tr.track.loading:hover {
+  background: darken($track_loading_background, 10%);
+}
+
+tr.track.playing {
+  background: $track_playing_background;
+}
+
+tr.track.playing:hover {
+  background: darken($track_playing_background, 10%);
+}
+
+tr.track.paused {
+  background: $track_paused_background;
+}
+
+tr.track.paused:hover {
+  background: darken($track_paused_background, 10%);
+}
 
 
 /* Track remove icon should be visible only in playlist view and hidden while drag'n'drop */

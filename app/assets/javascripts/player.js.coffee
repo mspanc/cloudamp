@@ -18,6 +18,7 @@
 
 //= require player/errors/collections
 //= require player/errors/variables
+//= require player/errors/tracks
 
 //= require player/models/track
 //= require player/models/track_collection
