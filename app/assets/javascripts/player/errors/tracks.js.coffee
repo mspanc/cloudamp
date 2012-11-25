@@ -10,8 +10,8 @@ class CloudAmp.Errors.InvalidTrackStateTransition extends Error
   name:    "CloudAmp.Errors.InvalidTrackStateTransition"
   message: "Unable to perform such track state transition"
   
-  constructor: (current_state, desired_state) ->
-    @message = "Unable to make track state transition " + current_state + " => " + desired_state
+  constructor: (track_url, current_state, desired_state) ->
+    @message = "Unable to make track state transition " + current_state + " => " + desired_state + " for track " + track_url
     
     
 

@@ -6,7 +6,6 @@ $ ->
       @search_panel_view    = new CloudAmp.Views.SearchPanel
       @playlists_panel_view = new CloudAmp.Views.PlaylistsPanel
       @player_widget        = null
-      @player_playing       = false
       
     
     bootstrap_playlists: (playlists) ->
@@ -25,8 +24,6 @@ $ ->
 
 
     play_track: (track_url) ->
-      @player_playing = false
-
       if $("iframe").length == 0
         SC.oEmbed track_url, @player_widget_options(), (oEmbed) =>
           $("#panel_player .embed").html oEmbed.html
@@ -36,31 +33,46 @@ $ ->
 
       else
         # TODO add pending tracks
-        @player_widget.load track_url, @player_widget_options()
+        reload_options = @player_widget_options()
+        reload_options.callback = @on_player_reload
+          
+        @player_widget.load track_url, reload_options
     
     
     pause_track: ->
       @player_widget.pause()
       
+
     resume_track: ->
       @player_widget.play()
+
+
+    unbind_from_playback_progress: ->
+      @player_widget.unbind SC.Widget.Events.PLAY_PROGRESS, @on_player_play_progress
+
+
+    bind_to_playback_progress: ->
+      @player_widget.bind SC.Widget.Events.PLAY_PROGRESS, @on_player_play_progress
       
 
+    on_player_reload: =>
+      @bind_to_playback_progress()
+      
+      
+      
     on_player_ready: =>
-      console.log "READY"
       @player_widget.bind SC.Widget.Events.PLAY,          @on_player_play
       @player_widget.bind SC.Widget.Events.PAUSE,         @on_player_pause
       @player_widget.bind SC.Widget.Events.FINISH,        @on_player_finish
-      @player_widget.bind SC.Widget.Events.PLAY_PROGRESS, @on_player_play_progress
+      @bind_to_playback_progress()
 
     on_player_play_progress: (param) =>
-      if @player_playing == false and param.loadedProgress == 1
-        @player_playing = true
+      if (param.loadedProgress != null and param.loadedProgress != 0)
+        @unbind_from_playback_progress()
         @mark_playing_track()
 
       
     on_player_play: =>
-      console.log "PLAYING"
       @mark_playing_track()
 
 
@@ -69,25 +81,14 @@ $ ->
 
 
     on_player_finish: =>
-      console.log "FINISH"
-
+      @player_widget.getCurrentSound (current_track) =>
+        track_view = $(".track[track_url='" + current_track.uri + "']:first").backboneView()
+        track_view.play_next()
+          
 
     mark_playing_track: ->
       @player_widget.getCurrentSound (current_track) =>
-        paused_track = $(".track.paused:first")
-        console.log paused_track
-        if paused_track.length != 0
-          track_view = paused_track.backboneView()
-        else
-          loading_track = $(".track.loading:first")
-          if loading_track.length != 0
-            track_view = loading_track.backboneView()
-          else
-            throw new CloudAmp.Errors.UnexpectedTrackStateChange(current_track.uri, "(no loading or paused track found)")
-          
-            
-        if track_view.model.get("track_url") != current_track.uri
-          throw new CloudAmp.Errors.UnexpectedTrackStateChange(current_track.uri, track_view.model.get("track_url"))
+        track_view = $(".track[track_url='" + current_track.uri + "']:first").backboneView()
           
         track_view.mark_as_playing()
     

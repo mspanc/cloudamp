@@ -26,6 +26,8 @@ $ ->
 
     
     clear: ->
+      @play_next() unless @state == Track.State.STOPPED
+        
       @model.clear()
     
 
@@ -133,9 +135,26 @@ $ ->
           window.APP.pause_track()
 
 
+    play_next: ->
+      @mark_as_stopped()
+
+      if @$el.next().length == 0
+        if @$el.parent().find(".track").length != 0
+          @$el.parent().find(".track:first").backboneView().invoke_playback_or_pause()
+          @$el.closest(".playlist-container").scrollTop(0)
+          
+      else
+        @$el.next().backboneView().invoke_playback_or_pause()
+    
+
       
     mark_as_playing: ->
-      throw new CloudAmp.Errors.InvalidTrackStateTransition(@state, Track.State.PLAYING) if @state != Track.State.LOADING and @state != Track.State.PAUSED
+      throw new CloudAmp.Errors.InvalidTrackStateTransition(@model.get("track_url"), @state, Track.State.PLAYING) if @state != Track.State.LOADING and @state != Track.State.PAUSED
+
+      # Find existing playing and paused tracks and stop them
+      $(".track.playing, .track.paused").each (i, track) -> 
+        $(track).backboneView().mark_as_stopped()
+
       
       # Set proper appeareance
       @set_row_appearance("playing")
@@ -147,7 +166,7 @@ $ ->
       
       
     mark_as_paused: ->
-      throw new CloudAmp.Errors.InvalidTrackStateTransition(@state, Track.State.PAUSED) if @state != Track.State.PLAYING
+      throw new CloudAmp.Errors.InvalidTrackStateTransition(@model.get("track_url"), @state, Track.State.PAUSED) if @state != Track.State.PLAYING
 
       # Set proper appeareance
       @set_row_appearance("paused")
@@ -160,7 +179,7 @@ $ ->
       
       
     mark_as_stopped: ->
-      throw new CloudAmp.Errors.InvalidTrackStateTransition(@state, Track.State.STOPPED) if @state == Track.State.STOPPED
+      throw new CloudAmp.Errors.InvalidTrackStateTransition(@model.get("track_url"), @state, Track.State.STOPPED) if @state == Track.State.STOPPED
       
       # Set proper appeareance
       @set_row_appearance(null)
