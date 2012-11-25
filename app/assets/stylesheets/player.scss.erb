@@ -1,0 +1,320 @@
+/*
+ *= require twitter/bootstrap
+ *= require_self
+ */
+ 
+$panel_background: #f5f5f5;
+$panel_top_height: 60px;
+$panel_side_width: 35%;
+$panel_player_height: 166px;
+$panel_padding: 14px;
+$widget_background: #fff;
+$widget_border: 1px solid #DDD;
+$flat_widget_height: 37px;
+$search_button_width_total: 28px;
+$search_button_width_without_padding: 16px;
+
+/* Common tweaks */
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+html, body.player {
+  height: 100%;
+  overflow: hidden;
+}
+
+
+/* All forms */
+.errorneous {
+  color: #cc0000 !important;
+}
+
+
+
+
+/* Top bar */
+
+.top {
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+
+  position: absolute;
+
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: $panel_top_height;
+
+  .logo {
+    margin: {
+      left: $panel_padding;
+      top: 10px;
+    }
+    
+    font: {
+      size: 28pt;
+      weight: normal;
+    }
+    color: #C11C0C;
+  }
+
+  .authentication {
+    margin: {
+      right: $panel_padding;
+      top: 16px;
+    }
+
+    form, form div {
+      display: inline;
+    }
+
+    .btn {
+      margin-left: 14px;
+    }
+
+    .username {
+      font-weight: bold;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+      margin: {
+        right: 4px;
+        left: 6px;
+      }
+    }
+  }
+}
+
+
+/* Main app layout */
+
+.main {
+  position: absolute;
+  top: $panel_top_height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+
+/* Player panel */
+#panel_player {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+  width: $panel_side_width;
+  height: $panel_player_height + $panel_padding * 2;
+  background: $panel_background;
+  
+  .embed {
+    position: absolute;
+    bottom: $panel_padding;
+    right: $panel_padding;
+    left: $panel_padding;
+    top: $panel_padding;
+  }
+  
+  .placeholder {
+    text-align: center;
+    
+    img {
+      margin-top: 8px;
+    }
+  }
+  
+}
+
+
+/* Search panel */
+
+#panel_search {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: $panel_player_height + $panel_padding;
+  width: $panel_side_width;
+  background: $panel_background;
+
+
+  .search-box {
+    position: absolute;
+    left: $panel_padding;
+    top: $panel_padding;
+    right: $panel_padding;
+    height: $flat_widget_height;
+    
+    .input-append {
+      input {
+        position: absolute;
+        top: 0;
+        width: auto;
+        left: 0;
+        right: $search_button_width_total - 1px;
+      }
+      
+      a {
+        position: absolute;
+        top: 0;
+        width: $search_button_width_without_padding;
+        right: 0;
+      }
+    }
+  }
+
+  .search-results {
+    position: absolute;
+    left: $panel_padding;
+    top: $flat_widget_height + $panel_padding + 1px;
+    right: $panel_padding;
+    bottom: $panel_padding;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    
+    background: #FCFCFC;
+    border: 1px solid #CCC;
+    
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+  }
+}
+
+
+/* Playlists panel */
+
+#panel_playlists {
+  position: absolute;
+  left: $panel_side_width;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: $panel_background;
+}
+
+#panel_playlists_tabs {
+  position: absolute;
+  left: 0;
+  top: $panel_padding;
+  right: $panel_padding;
+  height: $flat_widget_height;
+}
+
+#panel_playlists_contents {
+  position: absolute;
+  left: 0;
+  top: $flat_widget_height + $panel_padding + 1px;
+  right: $panel_padding;
+  bottom: $panel_padding;
+  background: $widget_background;
+  border: {
+    left: $widget_border;
+    right: $widget_border;
+    bottom: $widget_border;
+  }
+
+  .tab-pane {
+    background: yellow;
+  }
+
+  .tab-pane table {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;  
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+
+
+
+
+/* Tracks */
+tr.track {
+  td {
+    padding: 8px;
+  }
+
+  td.artwork, td.artwork img {
+    width: 24px;
+    height: 24px;
+  }
+
+  td.duration {
+    font-size: 75%;
+    color: #666;
+    text-align: right;
+  }
+
+  td.action {
+    width: 40px;
+    padding: 2px;
+  }
+}
+
+tr.track:hover {
+  cursor: move;
+  background: #f0f0f0;
+}
+
+
+
+/* Track remove icon should be visible only in playlist view and hidden while drag'n'drop */
+#panel_search td.action-remove {
+  display: none;
+}
+
+.track.ui-sortable-helper {
+  background: #f0f0f0;
+}
+
+.track.ui-sortable-helper td.action, .track.ui-sortable-helper td.duration {
+  display: none;
+}
+
+
+/* Spinner icon for tracks that are during loading */
+.icon-spinner {
+  background: url('<%= image_path "spinner.gif" %>');
+}
+
+
+/* Message about empty playlist */
+#panel_playlists_contents tr.message-empty td {
+  font-size: 200%;
+  color: #999;
+  text-align: center;
+}
+
+#panel_playlists_contents tr.message-empty .text {
+  line-height: 150%;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -o-border-radius: 12px;
+  padding: 20px;
+  margin: 20px;
+}

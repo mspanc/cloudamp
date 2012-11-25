@@ -54,5 +54,5 @@ $ ->
         .addClass("icon-spinner")
       
       SC.oEmbed @model.get("track_url"), { auto_play : true }, (oEmbed) ->
-        $("#panel_player").html oEmbed.html
+        $("#panel_player .embed").html oEmbed.html
       
