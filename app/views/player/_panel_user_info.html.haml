@@ -1,11 +1,13 @@
-%h1.logo.pull-left
-  CloudAmp
+.navbar.navbar-static-top.navbar-inverse
+  .navbar-inner
+    .container-fluid
+      =link_to "CloudAmp", root_url, :class => "brand"
+      .pull-right
+        .navbar-text.authentication
+          You are using CloudAmp as 
+          =image_tag session[:soundcloud_avatar_url], :alt => ""
+          %span.username
+            =session[:soundcloud_username]
 
-.authentication.pull-right
-  You are using CloudAmp as 
-  =image_tag session[:soundcloud_avatar_url], :alt => ""
-  %span.username
-    =session[:soundcloud_username]
-
-  =button_to "Sign out", session_path, :method => :delete, :class => "btn"
+          =button_to "Sign out", session_path, :method => :delete, :class => "btn"
 

@@ -1,10 +1,11 @@
 /*
  *= require twitter/bootstrap
+ *= require fonts
  *= require_self
  */
  
 $panel_background: #f5f5f5;
-$panel_top_height: 60px;
+$panel_top_height: 40px;
 $panel_side_width: 35%;
 $panel_player_height: 166px;
 $panel_padding: 14px;
@@ -35,47 +36,41 @@ html, body.player {
 }
 
 
-
-
-/* Top bar */
-
 .top {
-  background: #000;
-  color: #fff;
   overflow: hidden;
-
   position: absolute;
 
   width: 100%;
   top: 0;
   left: 0;
   height: $panel_top_height;
+  background: $panel_background;
 
-  .logo {
-    margin: {
+  .container-fluid {
+    padding: {
       left: $panel_padding;
-      top: 10px;
-    }
-    
-    font: {
-      size: 28pt;
-      weight: normal;
-    }
-    color: #C11C0C;
-  }
-
-  .authentication {
-    margin: {
       right: $panel_padding;
-      top: 16px;
     }
-
+  }
+  
+  .navbar-inner {
+    padding: 0;
+  }
+  
+  a.brand {
+    font-weight: bold;
+  }
+  
+  .authentication {
     form, form div {
       display: inline;
     }
 
     .btn {
-      margin-left: 14px;
+      margin: {
+        left: 14px;
+        top: -2px;
+      }
     }
 
     .username {
@@ -90,8 +85,9 @@ html, body.player {
         left: 6px;
       }
     }
-  }
+  }  
 }
+
 
 
 /* Main app layout */
@@ -122,15 +118,9 @@ html, body.player {
     right: $panel_padding;
     left: $panel_padding;
     top: $panel_padding;
+    background: url('<%= image_path "player-placeholder.png" %>') no-repeat 50% 50%;
   }
   
-  .placeholder {
-    text-align: center;
-    
-    img {
-      margin-top: 8px;
-    }
-  }
   
 }
 

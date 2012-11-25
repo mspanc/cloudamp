@@ -4,6 +4,7 @@
     %title 
       ="#{session[:soundcloud_username]}'s CloudAmp"
       
+    =stylesheet_link_tag "http://fonts.googleapis.com/css?family=Average+Sans"
     =stylesheet_link_tag :player
     -if Rails.env == "development"
       =javascript_include_tag "libraries/soundcloud-sdk"
