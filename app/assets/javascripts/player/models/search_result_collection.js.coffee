@@ -15,8 +15,6 @@ class CloudAmp.Models.SearchResultCollection extends Backbone.Collection
     throw new CloudAmp.Errors.OptionMissing("query") if typeof(options.query) == "undefined"
     throw new CloudAmp.Errors.VariableMustNotBeEmpty("options.query") if options.query.trim() == ""
           
-          
-    # TODO add error handling
     SC.get "/tracks", { q: options.query }, (tracks) ->
       # Remove tracks that are not streamable
       stripped_tracks = tracks.filter (track) =>
@@ -41,5 +39,4 @@ class CloudAmp.Models.SearchResultCollection extends Backbone.Collection
 
       
 
-  duration_in_ms_to_human: (duration) ->
 

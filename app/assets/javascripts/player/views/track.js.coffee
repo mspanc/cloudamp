@@ -24,7 +24,7 @@ $ ->
       "click .action-remove a" : "clear"
       "click .action-play a"   : "invoke_playback_or_pause"
 
-    
+      
     clear: ->
       @play_next() if @state == Track.State.PLAYING 
         
