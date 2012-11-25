@@ -10,13 +10,13 @@ $panel_side_width: 35%;
 $panel_player_height: 166px;
 $panel_padding: 14px;
 $widget_background: #fff;
-$widget_border: 1px solid #DDD;
+$widget_border_color: #ccc;
+$widget_border: 1px solid $widget_border_color;
 $flat_widget_height: 37px;
 $search_button_width_total: 28px;
 $search_button_width_without_padding: 16px;
 
 /* Common tweaks */
-
 ul {
   list-style-type: none;
   padding: 0;
@@ -27,6 +27,13 @@ ul {
 html, body.player {
   height: 100%;
   overflow: hidden;
+}
+
+
+/* Bootstrap fixes */
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+  border-color: $widget_border_color;
+  border-bottom-color: transparent;
 }
 
 
