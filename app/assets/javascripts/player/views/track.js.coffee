@@ -26,7 +26,7 @@ $ ->
 
     
     clear: ->
-      @play_next() unless @state == Track.State.STOPPED
+      @play_next() if @state == Track.State.PLAYING 
         
       @model.clear()
     
@@ -60,10 +60,14 @@ $ ->
       @$("td.action a:first").attr("disabled") == "disabled"
 
     disable_action_buttons: ->
-      @$("td.action a").attr("disabled", true)
+      @$("td.action a")
+        .attr("disabled", true)
+        .css("cursor", "progress")
 
     enable_action_buttons: ->
-      @$("td.action a").attr("disabled", false)
+      @$("td.action a")
+        .attr("disabled", false)
+        .css("cursor", "")
         
 
     set_row_appearance: (new_class = null) ->
