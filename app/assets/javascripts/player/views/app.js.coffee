@@ -24,6 +24,8 @@ $ ->
 
 
     play_track: (track_url) ->
+      console.log "PLAYING " + track_url
+      
       if $("iframe").length == 0
         SC.oEmbed track_url, @player_widget_options(), (oEmbed) =>
           $("#panel_player .embed").html oEmbed.html
@@ -68,6 +70,7 @@ $ ->
 
     on_player_play_progress: (param) =>
       if (param.loadedProgress != null and param.loadedProgress != 0)
+        console.log "PLAYBACK STARTED"
         @unbind_from_playback_progress()
         @mark_playing_track()
 
@@ -87,10 +90,12 @@ $ ->
           
 
     mark_playing_track: ->
+      console.log "MARK PLAYING TRACK"
       @player_widget.getCurrentSound (current_track) =>
-        track_view = $(".track[track_url='" + current_track.uri + "']:first").backboneView()
+        console.log "MARK PLAYING TRACK: current track is " + current_track.uri
+        track_view = $(".track.loading[track_url='" + current_track.uri + "'], .track.paused[track_url='" + current_track.uri + "']").first().backboneView()
           
-        track_view.mark_as_playing()
+        track_view.mark_as_playing() if track_view != null
     
     
     mark_paused_track: ->

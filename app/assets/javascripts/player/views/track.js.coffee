@@ -114,18 +114,17 @@ $ ->
           @set_play_action_icon("spinner")
           @set_play_action_tooltip("This track is loading...")
 
+          # Save state
+          @set_state Track.State.LOADING
 
           # Start playback
           window.APP.play_track(@model.get("track_url"))
           
-          # Save state
-          @state = Track.State.LOADING
           
 
         when Track.State.PAUSED
           # Disable action buttons to prevent multiple clicking
           @disable_action_buttons()
-          
           
           # Pause playback
           window.APP.resume_track()
@@ -156,19 +155,24 @@ $ ->
       throw new CloudAmp.Errors.InvalidTrackStateTransition(@model.get("track_url"), @state, Track.State.PLAYING) if @state != Track.State.LOADING and @state != Track.State.PAUSED
 
       # Find existing playing and paused tracks and stop them
+      console.log $(".track.playing, .track.paused")
       $(".track.playing, .track.paused").each (i, track) -> 
         $(track).backboneView().mark_as_stopped()
 
-      
       # Set proper appeareance
       @set_row_appearance("playing")
       @set_play_action_icon("pause")
       @set_play_action_tooltip("Pause this track")
         
       @enable_action_buttons()
-      @state = Track.State.PLAYING
+      @set_state Track.State.PLAYING
       
-      
+
+    set_state: (new_state) =>
+      console.log "Changing state of " + @model.get("track_url") + " from " + @state + " to " + new_state
+      @state = new_state
+
+    
     mark_as_paused: ->
       throw new CloudAmp.Errors.InvalidTrackStateTransition(@model.get("track_url"), @state, Track.State.PAUSED) if @state != Track.State.PLAYING
 
@@ -179,7 +183,7 @@ $ ->
 
       @enable_action_buttons()
 
-      @state = Track.State.PAUSED
+      @set_state Track.State.PAUSED
       
       
     mark_as_stopped: ->
@@ -192,7 +196,7 @@ $ ->
 
       @enable_action_buttons()
 
-      @state = Track.State.STOPPED
+      @set_state Track.State.STOPPED
       
     
 
