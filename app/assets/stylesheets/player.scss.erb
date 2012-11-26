@@ -155,12 +155,15 @@ html, body.player {
     height: $flat_widget_height;
     
     .input-append {
-      input {
+      .field {
         position: absolute;
         top: 0;
-        width: auto;
         left: 0;
-        right: $search_button_width_total - 1px;
+        right: $search_button_width_total - 1px + 14px;
+
+        input {
+          width: 100%;
+        }
       }
       
       a {
