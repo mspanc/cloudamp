@@ -6,6 +6,8 @@ $ ->
       @search_panel_view    = new CloudAmp.Views.SearchPanel
       @playlists_panel_view = new CloudAmp.Views.PlaylistsPanel
       @player_widget        = null
+      @player_initialized   = false
+      @pending_track_url    = null
       
     
     bootstrap_playlists: (playlists) ->
@@ -36,9 +38,16 @@ $ ->
       else
         # TODO add pending tracks
         reload_options = @player_widget_options()
-        reload_options.callback = @on_player_reload
+        
+        if @player_initialized == true
+          console.log "Player is initialized, reloading"
+          @player_initialized = false
+          reload_options.callback = @on_player_reload
           
-        @player_widget.load track_url, reload_options
+          @player_widget.load track_url, reload_options
+        else
+          console.log "Player is not initialized, pending"
+          @pending_track_url = track_url
     
     
     pause_track: ->
@@ -59,6 +68,13 @@ $ ->
 
     on_player_reload: =>
       @bind_to_playback_progress()
+      @player_initialized = true
+      
+      if @pending_track_url != null
+        console.log "We have pending track " + @pending_track_url + " reloading"
+        track_url = @pending_track_url
+        @pending_track_url = null
+        @play_track track_url
       
       
       
@@ -67,6 +83,7 @@ $ ->
       @player_widget.bind SC.Widget.Events.PAUSE,         @on_player_pause
       @player_widget.bind SC.Widget.Events.FINISH,        @on_player_finish
       @bind_to_playback_progress()
+      @player_initialized = true
 
     on_player_play_progress: (param) =>
       if (param.loadedProgress != null and param.loadedProgress != 0)
