@@ -28,7 +28,6 @@ $ ->
       @model.tracks.off "reset",   @render_all_tracks
       @model.tracks.off "reset",   @update_empty_message
       @model.tracks.off "add",     @update_empty_message
-      @model.tracks.off "add",     @calculate_position
       @model.tracks.off "add",     @store
       @model.tracks.off "remove",  @update_empty_message
       @model.tracks.off "remove",  @calculate_position
@@ -72,8 +71,6 @@ $ ->
     store: =>
       @$(".track").each (i, element) -> 
         $(element).backboneView().model.save
-          success: =>
-            console.log "SUCCESS" # TODO
           error: =>
-            console.log "ErROR"
+            $("#modal_track_save_error").modal 'show'
       

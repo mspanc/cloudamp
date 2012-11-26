@@ -1,0 +1,14 @@
+#modal_track_save_error.modal.fade.hide{ :tabindex => -1, :role => "dialog", :"aria-labelledby" => "modal_new_playlist_title", :"aria-hidden" => "true" }
+  =render :partial => "modal_header", :locals => { :title => "Server Error" }
+  .modal-body
+    %p  
+      There was an&nbsp;error while saving information about this track on&nbsp;the&nbsp;server.
+    %p
+      It&nbsp;means that it&nbsp;will probably not&nbsp;appear again when you reload the&nbsp;page or&nbsp;access CloudAmp player for&nbsp;the&nbsp;next time.
+    %p
+      The error was most probably caused by problem with network connection, not necessarily yours (it could be related to any network problem between you and the server). Although if&nbsp;it&nbsp;remains for a&nbsp;long time it&nbsp;could indicate a&nbsp;problem with CloudAmp itself.
+
+  .modal-footer
+    %button.btn.btn-primary{ :"data-dismiss" => "modal", :"aria-hidden" => "true" }
+      Close
+    
