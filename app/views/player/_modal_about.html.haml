@@ -1,0 +1,34 @@
+#modal_about.modal.fade.hide{ :tabindex => -1, :role => "dialog", :"aria-labelledby" => "modal_new_playlist_title", :"aria-hidden" => "true" }
+  =render :partial => "modal_header", :locals => { :title => "About CloudAmp" }
+  .modal-body
+    %p
+      %h1
+        CloudAmp
+      %h2
+        ultimate online player for SoundCloud
+      
+    %hr/
+      
+    %p 
+      Although 
+      %strong
+        CloudAmp
+      is a programming experiment I hope you will find it useful.
+
+    %p 
+      It's source code is&nbsp;open &ndash; feel free to&nbsp;visit #{link_to "GitHub repository", "https://www.github.com/saepia/cloudamp"}. It is licensed under #{link_to "AGPLv3", "http://www.gnu.org/licenses/agpl-3.0.html"}.
+    
+    %p
+      In case of any problems, please use #{link_to "GitHub tracker", "https://github.com/saepia/cloudamp/issues"}.
+
+    %hr/
+    
+    %address
+      Marcin Lewandowski
+      %br/
+      =link_to "saepia@saepia.net", "mailto:saepia@saepia.net"
+
+  .modal-footer
+    %button.btn.btn-primary{ :"data-dismiss" => "modal", :"aria-hidden" => "true" }
+      Close
+    
