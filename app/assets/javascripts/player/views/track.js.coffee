@@ -158,7 +158,6 @@ $ ->
       throw new CloudAmp.Errors.InvalidTrackStateTransition(@model.get("track_url"), @state, Track.State.PLAYING) if @state != Track.State.LOADING and @state != Track.State.PAUSED
 
       # Find existing playing and paused tracks and stop them
-      console.log $(".track.playing, .track.paused")
       $(".track.playing, .track.paused").each (i, track) -> 
         $(track).backboneView().mark_as_stopped()
 
@@ -172,7 +171,6 @@ $ ->
       
 
     set_state: (new_state) =>
-      console.log "Changing state of " + @model.get("track_url") + " from " + @state + " to " + new_state
       @state = new_state
 
     

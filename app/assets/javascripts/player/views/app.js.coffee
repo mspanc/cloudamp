@@ -35,8 +35,6 @@ $ ->
 
 
     play_track: (track_url) ->
-      console.log "PLAYING " + track_url
-
       @show_player_widget()
       if $("iframe").length == 0
         SC.oEmbed track_url, @player_widget_options(), (oEmbed) =>
@@ -46,17 +44,14 @@ $ ->
           @player_widget.bind SC.Widget.Events.READY, @on_player_ready
 
       else
-        # TODO add pending tracks
         reload_options = @player_widget_options()
         
         if @player_initialized == true
-          console.log "Player is initialized, reloading"
           @player_initialized = false
           reload_options.callback = @on_player_reload
           
           @player_widget.load track_url, reload_options
         else
-          console.log "Player is not initialized, pending"
           @pending_track_url = track_url
     
     
@@ -88,7 +83,6 @@ $ ->
       @player_initialized = true
       
       if @pending_track_url != null
-        console.log "We have pending track " + @pending_track_url + " reloading"
         track_url = @pending_track_url
         @pending_track_url = null
         @play_track track_url
@@ -104,7 +98,6 @@ $ ->
 
     on_player_play_progress: (param) =>
       if (param.loadedProgress != null and param.loadedProgress != 0)
-        console.log "PLAYBACK STARTED"
         @unbind_from_playback_progress()
         @mark_playing_track()
 
@@ -124,9 +117,7 @@ $ ->
           
 
     mark_playing_track: ->
-      console.log "MARK PLAYING TRACK"
       @player_widget.getCurrentSound (current_track) =>
-        console.log "MARK PLAYING TRACK: current track is " + current_track.uri
         track_view = $(".track.loading[track_url='" + current_track.uri + "'], .track.paused[track_url='" + current_track.uri + "']").first().backboneView()
           
         # There is a chance that we got this callback for song that was
