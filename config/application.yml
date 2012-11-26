@@ -7,10 +7,16 @@ defaults: &defaults
       
 development:
   <<: *defaults
+  env:
+    host: "localhost:3000"
 
 test:
   <<: *defaults
+  env:
+    host: "localhost:3000"
 
 production:
   <<: *defaults
+  env:
+    host: "cloudamp.saepia.net"
 

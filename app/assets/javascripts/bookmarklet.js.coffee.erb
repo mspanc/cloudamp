@@ -27,7 +27,7 @@ img.style.position = "absolute"
 img.style.zIndex   = -1000000000
   
 # Setup image URL including random part to prevent caching
-img.setAttribute "src", "<%= JS.escape(Rails.application.routes.url_helpers.add_bookmarklet_url(:host => "localhost:3000")) %>?_=" + Math.round(Math.random() * 1000000000000) + "&uri=" + encodeURIComponent(location.href)
+img.setAttribute "src", "<%= JS.escape(Rails.application.routes.url_helpers.add_bookmarklet_url(:host => Settings.env.host)) %>?_=" + Math.round(Math.random() * 1000000000000) + "&uri=" + encodeURIComponent(location.href)
 
 # Run!
 document.body.appendChild img
