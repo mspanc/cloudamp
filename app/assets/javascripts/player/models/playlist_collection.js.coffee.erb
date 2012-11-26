@@ -1,5 +1,6 @@
-class CloudAmp.Models.PlaylistCollection extends Backbone.Collection
-  model: CloudAmp.Models.Playlist
+$ ->
+  class CloudAmp.Models.PlaylistCollection extends Backbone.Collection
+    model: CloudAmp.Models.Playlist
 
-  url: "<%= JS.escape(Rails.application.routes.url_helpers.playlists_path) %>"
+    url: "<%= JS.escape(Rails.application.routes.url_helpers.playlists_path) %>"
 

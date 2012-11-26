@@ -1,13 +1,14 @@
-class CloudAmp.Models.Playlist extends Backbone.Model
-  url: ->
-    if @isNew()
-      return "<%= JS.escape(Rails.application.routes.url_helpers.playlists_path) %>"
-    else
-      return "<%= JS.escape(Rails.application.routes.url_helpers.playlists_path) %>/" + @id
-  
-  initialize: ->
-    @tracks = new CloudAmp.Models.TrackCollection
+$ ->
+  class CloudAmp.Models.Playlist extends Backbone.Model
+    url: ->
+      if @isNew()
+        return "<%= JS.escape(Rails.application.routes.url_helpers.playlists_path) %>"
+      else
+        return "<%= JS.escape(Rails.application.routes.url_helpers.playlists_path) %>/" + @id
     
-  teardown: ->
-    @tracks = null
-    
+    initialize: ->
+      @tracks = new CloudAmp.Models.TrackCollection
+      
+    teardown: ->
+      @tracks = null
+      
