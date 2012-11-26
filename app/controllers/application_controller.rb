@@ -34,8 +34,17 @@ class ApplicationController < ActionController::Base
   def user_signed_in?
     not current_user.nil?
   end
+
+  def authenticate_user_with_forced_forbidden
+    perform_authenticate_user true
+  end
   
   def authenticate_user
+    perform_authenticate_user false
+  end
+  
+  
+  def perform_authenticate_user(forced_forbidden)
     unless user_signed_in?
       # Clean up the session 
       reset_session
@@ -46,10 +55,15 @@ class ApplicationController < ActionController::Base
       
       # Go back to the home page
       respond_to do |format|
-        format.html { redirect_to root_url }
+        format.html do 
+          if forced_forbidden
+            render :text => "403", :status => 403
+          else
+            redirect_to root_url 
+          end
+        end
         format.json { head :forbidden }
       end
-      
     end
-  end  
+  end      
 end

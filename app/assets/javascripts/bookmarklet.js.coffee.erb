@@ -1,0 +1,34 @@
+# Ensure that we are on SoundCloud
+if location.hostname.indexOf("soundcloud.com", location.hostname.length - "soundcloud.com".length) == -1
+  alert "You can use this bookmarklet only while browsing soundcloud.com."
+  return
+
+# Ensure that we are browsing track
+if location.pathname.split("/").length != 3
+  alert "You can use this bookmarklet only while browsing TRACKS on soundcloud.com. Are you sure you are browsing track page?"
+  return
+  
+  
+# Create fake image element used to notify CloudAmp
+img = document.createElement "img"
+
+
+# Set up success handler
+img.onload = ->
+  alert "This track was successfully added to your CloudAmp playlist. Please reload CloudAmp in order to see this track if it is already open."
+
+# Set up failure handler, in most cases that would mean that we are not logged in
+# or we browse wrong page that had not been caught by previous checks
+img.onerror = ->
+  alert "Unable to add this track to CloudAmp. Are you logged in to CloudAmp? Remember also that you can use this bookmarklet only while browsing TRACKS on soundcloud.com. Are you sure you are browsing track page?"
+
+# Ensure that image will not break the layout
+img.style.position = "absolute"
+img.style.zIndex   = -1000000000
+  
+# Setup image URL including random part to prevent caching
+img.setAttribute "src", "<%= JS.escape(Rails.application.routes.url_helpers.add_bookmarklet_url(:host => "localhost:3000")) %>?_=" + Math.round(Math.random() * 1000000000000) + "&uri=" + encodeURIComponent(location.href)
+
+# Run!
+document.body.appendChild img
+

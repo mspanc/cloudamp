@@ -10,7 +10,8 @@ $ ->
       @pending_track_url    = null
       
     events:
-      "click #nav_about"   : "show_modal_about"
+      "click #nav_about"       : "show_modal_about"
+      "click #nav_bookmarklet" : "show_modal_bookmarklet"
     
     bootstrap_playlists: (playlists) ->
       @playlists_panel_view.bootstrap(playlists)
@@ -18,6 +19,9 @@ $ ->
       
     show_modal_about: ->
       @$("#modal_about").modal "show"
+
+    show_modal_bookmarklet: ->
+      @$("#modal_bookmarklet").modal "show"
 
     # Generates object with options passed to SoundCloud Player Widget.
     #

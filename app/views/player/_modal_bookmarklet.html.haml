@@ -1,0 +1,32 @@
+#modal_bookmarklet.modal.fade.hide{ :tabindex => -1, :role => "dialog", :"aria-labelledby" => "modal_new_playlist_title", :"aria-hidden" => "true" }
+  =render :partial => "modal_header", :locals => { :title => "CloudAmp Bookmarklet" }
+  .modal-body
+    %h4
+      What is CloudAmp bookmarklet?
+
+    %p 
+      This is a&nbsp;tiny piece of&nbsp;code for&nbsp;your browser that allows you to&nbsp;add tracks to&nbsp;your playlists while browsing soundcloud.com. It&nbsp;appears the&nbsp;same as&nbsp;a&nbsp;bookmark button but&nbsp;gives such handy functionality.
+      
+
+    %h4
+      How it works?
+
+    %p 
+      Just click the bookmarklet button while you are on track's page at soundcloud.com and track is&nbsp;added to&nbsp;your first playlist, at&nbsp;the&nbsp;end.
+    %p
+      Please remember that you&nbsp;have to&nbsp;be&nbsp;signed in&nbsp;to&nbsp;CloudAmp.
+      
+
+    %h4
+      How to install it?
+
+    %p 
+      Drag&amp;drop the&nbsp;following button&nbsp;to your bookmarks bar:
+      
+    %p.bookmarklet-button
+      %a.btn.btn-info.btn-large{ :href => "javascript:(function() { var jsCode = document.createElement('script'); jsCode.setAttribute('src', '#{JS.escape(root_url)}assets/bookmarklet.js'); jsCode.onerror = function() { alert('There was en error while loading CloudAmp bookmarklet code.'); }; document.body.appendChild(jsCode); }());" }
+        %span
+          Add to CloudAmp
+
+  =render :partial => "modal_footer_close"
+    

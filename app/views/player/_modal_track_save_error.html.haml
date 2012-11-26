@@ -8,7 +8,5 @@
     %p
       The error was most probably caused by problem with network connection, not necessarily yours (it could be related to any network problem between you and the server). Although if&nbsp;it&nbsp;remains for a&nbsp;long time it&nbsp;could indicate a&nbsp;problem with CloudAmp itself.
 
-  .modal-footer
-    %button.btn.btn-primary{ :"data-dismiss" => "modal", :"aria-hidden" => "true" }
-      Close
-    
+  =render :partial => "modal_footer_close"
+

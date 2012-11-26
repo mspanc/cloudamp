@@ -57,7 +57,7 @@ class SessionsController < ApplicationController
       reset_session
 
       # Log the error and inform the user     
-      logger.warn "[initialize_session] SoundCloud replied with error: #{e}, parameters were: #{params.inspect}"
+      logger.warn "[initialize_session] SoundCloud replied with error: #{e.message}, parameters were: #{params.inspect}"
       flash[:error] = "We are unable to connect with your SoundCloud account. Please try again."
       
       # Go back to the home page

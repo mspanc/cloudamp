@@ -60,7 +60,8 @@ module Cloudamp
     config.assets.initialize_on_precompile = true
 
     config.assets.precompile << %w( welcome.css player.css )
-    config.assets.precompile << %w( player.js )
+    config.assets.precompile << %w( player.js bookmarklet.js )
+    config.assets.precompile << %w( empty.gif )
     
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

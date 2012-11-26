@@ -11,6 +11,7 @@ Cloudamp::Application.routes.draw do
   match 'sessions'         => 'sessions#destroy', :via => :delete, :as => 'session'
   
   match 'player'           => 'player#main',      :via => :get,    :as => 'main_player'
-  
+  match 'bookmarklet/add'  => 'bookmarklet#add',  :via => :get,    :as => 'add_bookmarklet'
+
   root :to => 'welcome#index'
 end
