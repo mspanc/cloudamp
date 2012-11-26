@@ -27,7 +27,8 @@ $ ->
 
     play_track: (track_url) ->
       console.log "PLAYING " + track_url
-      
+
+      @show_player_widget()
       if $("iframe").length == 0
         SC.oEmbed track_url, @player_widget_options(), (oEmbed) =>
           $("#panel_player .embed").html oEmbed.html
@@ -49,6 +50,13 @@ $ ->
           console.log "Player is not initialized, pending"
           @pending_track_url = track_url
     
+    
+    hide_player_widget: =>
+      @$("#panel_player iframe").hide()
+      @pause_track()
+
+    show_player_widget: =>
+      @$("#panel_player iframe").show()
     
     pause_track: ->
       @player_widget.pause()
@@ -117,10 +125,16 @@ $ ->
     
     mark_paused_track: ->
       @player_widget.getCurrentSound (current_track) =>
+        # Find view associated with currently playing track
         paused_track_view = $(".track.playing").backboneView()
         
-        if paused_track_view.model.get("track_url") != current_track.uri
-          throw new CloudAmp.Errors.UnexpectedTrackStateChange(current_track.uri, paused_track_view.model.get("track_url"))
-          
-        paused_track_view.mark_as_paused()
+        # There's a chance that this view does not exist if we are removing
+        # paused track and it is last track in the playlist
+        if paused_track_view != null
         
+          # Ensure we are doing things on right track
+          if paused_track_view.model.get("track_url") != current_track.uri
+            throw new CloudAmp.Errors.UnexpectedTrackStateChange(current_track.uri, paused_track_view.model.get("track_url"))
+            
+          paused_track_view.mark_as_paused()
+          

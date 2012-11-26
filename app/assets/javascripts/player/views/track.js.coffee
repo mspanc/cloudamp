@@ -26,7 +26,11 @@ $ ->
 
       
     clear: ->
-      @play_next() if @state == Track.State.PLAYING 
+      if @state != Track.State.STOPPED
+        if @model.collection.size() > 1
+          @play_next()
+        else
+          window.APP.hide_player_widget()
         
       @model.clear()
     
@@ -142,7 +146,7 @@ $ ->
       @mark_as_stopped()
 
       if @$el.next().length == 0
-        if @$el.parent().find(".track").length != 0
+        if @model.collection.size() != 0
           @$el.parent().find(".track:first").backboneView().invoke_playback_or_pause()
           @$el.closest(".playlist-container").scrollTop(0)
           
