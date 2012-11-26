@@ -120,7 +120,14 @@ $ ->
         console.log "MARK PLAYING TRACK: current track is " + current_track.uri
         track_view = $(".track.loading[track_url='" + current_track.uri + "'], .track.paused[track_url='" + current_track.uri + "']").first().backboneView()
           
-        track_view.mark_as_playing() if track_view != null
+        # There is a chance that we got this callback for song that was
+        # loading while user removed playlist that contained it.
+        #
+        # If it is not the case, mark it as playing
+        if track_view == null
+          @hide_player_widget()
+        else
+          track_view.mark_as_playing() 
     
     
     mark_paused_track: ->

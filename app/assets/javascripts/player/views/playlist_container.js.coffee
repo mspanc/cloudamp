@@ -14,7 +14,7 @@ $ ->
       
     
     initialize: ->
-      @model.on         "destroy", @remove, @
+      @model.on         "destroy", @clean
       @model.tracks.on  "reset",   @render_all_tracks
       @model.tracks.on  "reset",   @update_empty_message
       @model.tracks.on  "add",     @update_empty_message
@@ -24,7 +24,7 @@ $ ->
       @model.tracks.on  "remove",  @calculate_position
       
     teardown: ->
-      @model.off        "destroy", @remove, @
+      @model.off        "destroy", @clean
       @model.tracks.off "reset",   @render_all_tracks
       @model.tracks.off "reset",   @update_empty_message
       @model.tracks.off "add",     @update_empty_message
@@ -38,6 +38,12 @@ $ ->
       @$el.html(@template(@model.toJSON()))
       return @
     
+    
+    clean: =>
+      if @$(".track.playing").length != 0 or @$(".track.paused").length != 0
+        window.APP.hide_player_widget()
+        
+      @remove()
 
     render_one_track: (track) =>
       view   = new CloudAmp.Views.Track({ model: track });

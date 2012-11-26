@@ -146,7 +146,6 @@ $ ->
       @mark_as_stopped()
 
       if @$el.next().length == 0
-        if @model.collection.size() != 0
           @$el.parent().find(".track:first").backboneView().invoke_playback_or_pause()
           @$el.closest(".playlist-container").scrollTop(0)
           
