@@ -1,5 +1,9 @@
 Cloudamp::Application.routes.draw do
-  resources :playlists, :defaults => { :format => 'json' }, :only => [ :create, :update, :destroy ]
+  resources :playlists, :defaults => { :format => 'json' }, :only => [ :create, :update, :destroy ] do
+    member do
+      post :track_positions
+    end
+  end
   resources :tracks,    :defaults => { :format => 'json' }, :only => [ :create, :update, :destroy ]
   
   match 'sessions/connect' => 'sessions#connect', :via => :get,    :as => 'connect_session'

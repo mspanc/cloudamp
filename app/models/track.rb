@@ -1,5 +1,5 @@
 class Track < ActiveRecord::Base
-  attr_accessible :title, :track_url, :playlist_id, :position, :artwork_url, :duration
+  attr_accessible :title, :track_url, :playlist_id, :artwork_url, :duration
   
   belongs_to :playlist
   
@@ -13,5 +13,18 @@ class Track < ActiveRecord::Base
                           :uniqueness   => { :scope => :playlist_id }
   
 
+
+  before_validation :generate_next_position
   
+  protected
+  
+  def generate_next_position
+    last_track = Track.where(:playlist_id => self.playlist_id).select(:position).order("position DESC").first
+    
+    if last_track
+      self.position = last_track.position + 1
+    else
+      last_position = 0
+    end
+  end
 end

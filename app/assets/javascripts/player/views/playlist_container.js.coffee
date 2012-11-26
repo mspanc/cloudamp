@@ -4,11 +4,11 @@ $ ->
     tagName    : "div"
     className  : "tab-pane playlist-container"
     
-    # User by tab hooks
+    # Used by tab hooks
     id         : =>
       "playlist" + @model.get("id")
 
-    # User by drag'n'drop lookup
+    # Used by drag'n'drop lookup
     attributes : =>
       "playlist_id" : @model.get("id")
       
@@ -18,10 +18,14 @@ $ ->
       @model.tracks.on  "reset",   @render_all_tracks
       @model.tracks.on  "reset",   @update_empty_message
       @model.tracks.on  "add",     @update_empty_message
-      @model.tracks.on  "add",     @calculate_position
       @model.tracks.on  "add",     @store
       @model.tracks.on  "remove",  @update_empty_message
-      @model.tracks.on  "remove",  @calculate_position
+
+      # Setup periodic updates of track positions. Randomize interval in range
+      # of 30..39 seconds in order to avoid the case in which multiple playlists
+      # of one user get updated at the same time and server is overloaded.
+      @store_positions_timeout = (30 + Math.round(Math.random() * 10)) * 1000
+      @store_positions_interval =   setInterval(@store_positions, @store_positions_timeout)
       
     teardown: ->
       @model.off        "destroy", @clean
@@ -30,8 +34,8 @@ $ ->
       @model.tracks.off "add",     @update_empty_message
       @model.tracks.off "add",     @store
       @model.tracks.off "remove",  @update_empty_message
-      @model.tracks.off "remove",  @calculate_position
       
+      clearInterval(@store_positions_interval)
     
     render: ->
       @$el.html(@template(@model.toJSON()))
@@ -63,11 +67,20 @@ $ ->
         @$(".message-empty").hide()
       
     
-    calculate_position: =>
+    store_positions: =>
+      positions = []
+
       @$(".track").each (i, element) -> 
-        $(element).backboneView().model.set("position", i)
-        
-        
+        positions.push $(element).backboneView().model.id
+      
+      $.ajax
+        data :
+          positions : positions
+        dataType    : "json"
+        timeout     : @store_positions_timeout
+        type        : "POST"
+        url         : "/playlists/" + @model.id + "/track_positions"
+         
     store: =>
       @$(".track").each (i, element) -> 
         $(element).backboneView().model.save

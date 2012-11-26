@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121124132857) do
+ActiveRecord::Schema.define(:version => 20121126210800) do
 
   create_table "playlists", :force => true do |t|
     t.integer  "user_id",                    :null => false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20121124132857) do
     t.datetime "updated_at",                 :null => false
   end
 
-  add_index "tracks", ["playlist_id", "position"], :name => "index_tracks_on_playlist_id_and_position", :unique => true
+  add_index "tracks", ["playlist_id", "position"], :name => "index_tracks_on_playlist_id_and_position"
 
   create_table "users", :force => true do |t|
     t.integer  "soundcloud_id", :null => false

@@ -30,7 +30,7 @@
   :javascript
     $(function() {
       window.APP.bootstrap_playlists(
-        #{ @current_user.playlists.ordered.includes(:tracks).to_json( :only => [ :id, :title, :description ], :include => { :tracks => { :only => [ :id, :title, :track_url, :artwork_url, :position, :duration ] } } ).html_safe }
+        #{ @current_user.playlists.ordered.includes(:tracks).to_json( :only => [ :id, :title, :description ], :include => { :tracks => { :only => [ :id, :title, :track_url, :artwork_url, :duration ] } } ).html_safe }
       );
     });
   
