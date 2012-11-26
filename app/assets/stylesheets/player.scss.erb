@@ -213,46 +213,48 @@ html, body.player {
   bottom: 0;
   right: 0;
   background: $panel_background;
-}
-
-#panel_playlists_tabs {
-  position: absolute;
-  left: 0;
-  top: $panel_padding;
-  right: $panel_padding;
-  height: $flat_widget_height;
-}
-
-#panel_playlists_contents {
-  position: absolute;
-  left: 0;
-  top: $flat_widget_height + $panel_padding + 1px;
-  right: $panel_padding;
-  bottom: $panel_padding;
-  background: $widget_background;
-  border: {
-    left: $widget_border;
-    right: $widget_border;
-    bottom: $widget_border;
+  
+  a.playlist-button {
+    margin-left: 4px;
   }
 
-  .tab-pane {
+  #panel_playlists_tabs {
     position: absolute;
-    right: 0;
     left: 0;
-    top: 0;
-    bottom: 0;  
-    overflow-x: hidden;
-    overflow-y: auto;
+    top: $panel_padding;
+    right: $panel_padding;
+    height: $flat_widget_height;
+  }
 
-    table {
-      width: 100%;
+  #panel_playlists_contents {
+    position: absolute;
+    left: 0;
+    top: $flat_widget_height + $panel_padding + 1px;
+    right: $panel_padding;
+    bottom: $panel_padding;
+    background: $widget_background;
+    border: {
+      left: $widget_border;
+      right: $widget_border;
+      bottom: $widget_border;
+    }
+
+    .tab-pane {
       position: absolute;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;  
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      table {
+        width: 100%;
+        position: absolute;
+      }
     }
   }
 }
-
-
 
 
 

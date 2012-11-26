@@ -1,9 +1,17 @@
 .panel.middlepanel#panel_playlists
   %nav#panel_playlists_tabs.tabbable
     %ul.nav.nav-tabs
-      %a.pull-right.btn.btn-small#new_playlist_button{ :rel => "tooltip", :title => "Add playlist", :"data-placement" => "bottom" }
-        %i.icon-plus
+      .pull-right
+        %a.playlist-button.btn.btn-small#new_playlist_button{ :rel => "tooltip", :title => "Add playlist", :"data-placement" => "bottom" }
+          %i.icon-plus
+        %a.playlist-button.btn.btn-small#edit_playlist_button{ :rel => "tooltip", :title => "Edit this playlist", :"data-placement" => "bottom" }
+          %i.icon-edit
+        %a.playlist-button.btn.btn-small#remove_playlist_button{ :rel => "tooltip", :title => "Remove this playlist", :"data-placement" => "bottom" }
+          %i.icon-remove
   #panel_playlists_contents.tab-content
 
 
+  =render :partial => "modal_new_playlist"
+  =render :partial => "modal_edit_playlist"
+  =render :partial => "modal_remove_playlist"
 

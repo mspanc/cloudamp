@@ -1,0 +1,10 @@
+#modal_remove_playlist.modal.fade.hide{ :tabindex => -1, :role => "dialog", :"aria-labelledby" => "modal_new_playlist_title", :"aria-hidden" => "true" }
+  =render :partial => "modal_header", :locals => { :title => "Remove Playlist" }
+  .modal-body
+    %p
+      Are you sure that you want to remove playlist
+      %strong#modal_remove_playlist_title
+      ?
+
+  =render :partial => "modal_footer", :locals => { :modal_type => "remove", :submit => "Yes, remove this playlist" }
+    

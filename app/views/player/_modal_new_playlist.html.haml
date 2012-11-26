@@ -1,0 +1,10 @@
+#modal_new_playlist.modal.fade.hide{ :tabindex => -1, :role => "dialog", :"aria-labelledby" => "modal_new_playlist_title", :"aria-hidden" => "true" }
+  =render :partial => "modal_header", :locals => { :title => "Edit Playlist" }
+  .modal-body
+    %p
+      Please name your new playlist and give it an optional description.
+
+    =render :partial => "modal_playlist_form", :locals => { :modal_type => "new" }
+
+  =render :partial => "modal_footer", :locals => { :modal_type => "new", :submit => "Add playlist" }
+

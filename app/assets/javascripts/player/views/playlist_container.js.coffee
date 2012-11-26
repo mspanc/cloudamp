@@ -14,7 +14,7 @@ $ ->
       
     
     initialize: ->
-      @model.on         "destroy", @remove
+      @model.on         "destroy", @remove, @
       @model.tracks.on  "reset",   @render_all_tracks
       @model.tracks.on  "reset",   @update_empty_message
       @model.tracks.on  "add",     @update_empty_message
@@ -24,7 +24,7 @@ $ ->
       @model.tracks.on  "remove",  @calculate_position
       
     teardown: ->
-      @model.off        "destroy", @remove
+      @model.off        "destroy", @remove, @
       @model.tracks.off "reset",   @render_all_tracks
       @model.tracks.off "reset",   @update_empty_message
       @model.tracks.off "add",     @update_empty_message
