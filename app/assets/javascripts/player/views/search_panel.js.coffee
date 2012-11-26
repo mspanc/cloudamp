@@ -9,12 +9,7 @@ $ ->
     initialize: ->
       @search_result_collection = new CloudAmp.Models.SearchResultCollection
       @search_result_collection.on 'reset', @render_search_results
-      @$("tbody")
-        .disableSelection()
-        .sortable
-          appendTo    : "#app"
-          helper      : "clone"
-          connectWith : ".playlist-dragndrop"
+      CloudAmp.Helpers.DragNDrop.initialize_dragndrop_playlist_container @$("tbody")
 
 
     handle_enter_in_search_field: (event) ->

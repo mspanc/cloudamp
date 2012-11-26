@@ -12,6 +12,7 @@ $panel_padding: 14px;
 $widget_background: #fff;
 $widget_border_color: #ccc;
 $widget_border: 1px solid $widget_border_color;
+$widget_border_radius: 4px;
 $flat_widget_height: 37px;
 $search_button_width_total: 28px;
 $search_button_width_without_padding: 16px;
@@ -19,6 +20,16 @@ $search_button_width_without_padding: 16px;
 $track_loading_background: #FCFCA6;
 $track_playing_background: #ADFEA5;
 $track_paused_background: #A5E3FE;
+
+@mixin border-radius($radius) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -o-border-radius: $radius;
+}
+
+
+
 
 /* Common tweaks */
 ul {
@@ -176,6 +187,8 @@ html, body.player {
   }
 
   .search-results {
+    @include border-radius($widget_border_radius);
+
     position: absolute;
     left: $panel_padding;
     top: $flat_widget_height + $panel_padding + 1px;
@@ -183,12 +196,6 @@ html, body.player {
     bottom: $panel_padding;
     overflow-x: hidden;
     overflow-y: auto;
-    
-
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px;
     
     background: #FCFCFC;
     border: 1px solid #CCC;
@@ -282,7 +289,15 @@ tr.track {
     width: 40px;
     padding: 2px;
   }
+  
+  td.playlist-dragndrop-placeholder {
+    -webkit-box-shadow: inset 2px 2px 7px -2px #ccc;
+    box-shadow: inset 2px 2px 7px -2px #ccc; 
+    background: #fcfcfc;
+  }
 }
+
+
 
 tr.track:hover {
   cursor: move;
@@ -321,10 +336,22 @@ tr.track.paused:hover {
 
 .track.ui-sortable-helper {
   background: #f0f0f0;
-}
+  border: $widget_border;
+  @include border-radius($widget_border_radius);
 
-.track.ui-sortable-helper td.action, .track.ui-sortable-helper td.duration {
-  display: none;
+  -moz-box-shadow: 2px 2px 6px #888;
+  -webkit-box-shadow: 2px 2px 6px #888;
+  -o-box-shadow: 2px 2px 6px #888;
+  box-shadow: 2px 2px 6px #888;    
+  
+  -moz-opacity: 0.8;
+  -webkit-opacity: 0.8;
+  -o-opacity: 0.8;
+  opacity: 0.8;  
+  
+  td.action, td.duration {
+    display: none;
+  }
 }
 
 
@@ -342,12 +369,10 @@ tr.track.paused:hover {
 }
 
 #panel_playlists_contents tr.message-empty .text {
+  @include border-radius(12px);
+
   line-height: 150%;
   border: 2px dashed #ccc;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  -o-border-radius: 12px;
   padding: 20px;
   margin: 20px;
 }

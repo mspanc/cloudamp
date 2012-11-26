@@ -30,7 +30,7 @@ $ ->
         playlist.tracks.reset playlist.get("tracks")
         playlist.unset("tracks")
       
-      
+    
     on_tab_changed: (event) ->
       @current_playlist = $(event.target).parent().backboneView().model
       
@@ -52,14 +52,8 @@ $ ->
       @$("#panel_playlists_contents").append container_output
 
       # Enable drag'n'drop
-      $(container_output).find("tbody")
-        .disableSelection()
-        .sortable
-          connectWith : ".playlist-dragndrop"
-          items       : ">*:not(.message-empty)"
-          appendTo    : "#app"
-          helper      : "clone"
-          
+      CloudAmp.Helpers.DragNDrop.initialize_dragndrop_playlist_container $(container_output).find("tbody")
+
       
       # Show message about empty playlist if it is empty
       container_view.update_empty_message()

@@ -20,6 +20,8 @@
 //= require player/errors/variables
 //= require player/errors/tracks
 
+//= require player/helpers/dragndrop
+
 //= require player/models/track
 //= require player/models/track_collection
 //= require player/models/search_result_collection
