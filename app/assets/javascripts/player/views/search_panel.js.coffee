@@ -42,6 +42,8 @@ $ ->
     #
     # Displays spinner, cleanups previous search results.
     perform_search:  ->
+      return if @$("#search_field").val().trim() == ""
+      
       # Lock search button, display spinner and busy mouse cursor
       @$(".search-box a").attr("disabled", true)
       @$(".search-box a").css("cursor", "progress")
