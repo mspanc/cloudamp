@@ -20,7 +20,7 @@ $ ->
       container
         .disableSelection()
         .sortable
-          connectWith : ".playlist-dragndrop"
+          connectWith : ".playlist-dragndrop, .playlist-container.active"
           items       : ">*:not(.playlist-dragndrop-invalid)"
           appendTo    : "#app"
           helper      : "clone"
@@ -30,26 +30,13 @@ $ ->
               .css("visibility", "visible")
               .append($('<td colspan="5" class="playlist-dragndrop-placeholder"></td>'))
 
-
-            # Add temporary filler to allow dropping below end of tbody
-            $("#panel_playlists .playlist-container.active table")
-              .css("height", "100%")
-
-            filler = $('<tr class="playlist-dragndrop-filler playlist-dragndrop-invalid"><td colspan="5"> </td></tr>')
-            $("#panel_playlists .playlist-container.active tbody")
-              .css("height", "100%")
-              .append(filler)
-              
-            $(".playlist-dragndrop-filler").height($(".playlist-dragndrop-filler").closest(".playlist-container").height())
-
           stop       : (event, ui) ->
-            # Remove temporary filler to allow dropping below end of tbody
-            $("#panel_playlists .playlist-container.active table")
-              .css("height", "")
-
-            $("#panel_playlists .playlist-container.active tbody")
-              .css("height", "")
-
-            $("#panel_playlists .playlist-container.active .playlist-dragndrop-filler")
-              .remove()
+            # If element was dropped on empty space below tbody, move it to tbody
+            # and force call drop event handler
+            if ui.item.parent().hasClass("playlist-container")
+              tbody = ui.item.parent().find("tbody")
+              tbody.append(ui.item)
+              
+              tbody.backboneView().on_track_dropped event, ui
+              
 

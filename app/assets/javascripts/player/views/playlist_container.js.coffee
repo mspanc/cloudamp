@@ -32,7 +32,6 @@ $ ->
     
     events:
       "sortreceive .playlist-dragndrop"  : "on_track_dropped"
-      
     
     initialize: ->
       @model.on         "destroy", @clean
@@ -47,6 +46,8 @@ $ ->
       # of one user get updated at the same time and server is overloaded.
       @store_positions_timeout = (10 + Math.round(Math.random() * 10)) * 1000
       @store_positions_interval =   setInterval(@store_positions, @store_positions_timeout)
+      
+      CloudAmp.Helpers.DragNDrop.initialize_dragndrop_playlist_container @$el
       
     teardown: ->
       @model.off        "destroy", @clean
@@ -72,6 +73,7 @@ $ ->
         window.APP.hide_player_widget()
         
       @remove()
+
 
 
     # Renders one track
