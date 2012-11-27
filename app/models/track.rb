@@ -5,7 +5,6 @@ class Track < ActiveRecord::Base
   
   validates :title,       :presence => true
   validates :track_url,   :presence => true
-  validates :artwork_url, :presence => true
   validates :duration,    :presence => true
   validates :playlist,    :presence => true
   validates :position,    :presence     => true, 

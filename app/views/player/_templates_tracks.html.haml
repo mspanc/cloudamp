@@ -1,6 +1,8 @@
 %script#track-template{ :type => "text/template" }
   %td.artwork
+    <% if(artwork_url != null) { %>
     %img{ :src => "<%- artwork_url %>".html_safe, :alt => "" }
+    <% } %>
   %td.title
     <%- title %>
   %td.duration
