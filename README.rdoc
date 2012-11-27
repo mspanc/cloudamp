@@ -1,6 +1,6 @@
 == CloudAmp
 
-CloudAmp is aa ultimate online player for SoundCloud tracks.
+CloudAmp is an ultimate online player for SoundCloud tracks.
 
 If is based on Ruby on Rails, but most of the logic is stored in the
 Backbone/CoffeeScript/Bootstrap/SCSS-powered user interface.
