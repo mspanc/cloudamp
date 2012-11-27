@@ -1,4 +1,23 @@
+# This file is part of CloudAmp. For more information about CloudAmp,
+# please visit http://github.com/saepia/cloudamp. 
+#
+# Licensed under GNU Affero General Public License available 
+# at http://www.gnu.org/licenses/agpl-3.0.html
+#
+# (c) 2012 Marcin Lewandowski
+
 $ ->
+  # This file is part of CloudAmp. For more information about CloudAmp,
+  # please visit http://github.com/saepia/cloudamp. 
+  #
+  # Licensed under GNU Affero General Public License available 
+  # at http://www.gnu.org/licenses/agpl-3.0.html
+  #
+  # (c) 2012 Marcin Lewandowski
+  # 
+  # View responsible for handling search panel.
+  #
+  # It handles all UI interactions, search results rendering etc.
   class CloudAmp.Views.SearchPanel extends Backbone.View
     el: $ "#panel_search"
     
@@ -12,10 +31,16 @@ $ ->
       CloudAmp.Helpers.DragNDrop.initialize_dragndrop_playlist_container @$("tbody")
 
 
+    # Invokes search when users presses ENTER in the search field
+    #
+    # @param event event associated with the key press
     handle_enter_in_search_field: (event) ->
       @perform_search() if event.keyCode == 13
        
 
+    # Invokes search.
+    #
+    # Displays spinner, cleanups previous search results.
     perform_search:  ->
       # Lock search button, display spinner and busy mouse cursor
       @$(".search-box a").attr("disabled", true)
@@ -33,6 +58,7 @@ $ ->
       @search_result_collection.fetch { query : @$("#search_field").val() }
 
       
+    # Renders search results
     render_search_results: (results) =>
       # Unlock search button and restore original icon & mouse cursor
       @$(".search-box a").attr("disabled", false)

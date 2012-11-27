@@ -1,4 +1,18 @@
+# This file is part of CloudAmp. For more information about CloudAmp,
+# please visit http://github.com/saepia/cloudamp. 
+#
+# Licensed under GNU Affero General Public License available 
+# at http://www.gnu.org/licenses/agpl-3.0.html
+#
+# (c) 2012 Marcin Lewandowski
+
 $ ->
+  # This model stores single track.
+  #
+  # It is assigned to TrackCollection if track is a part of Playlist or
+  # to SearchResultCollection if track is a part of search result.
+  #
+  # This model directly maps to Rails model with the same name.
   class CloudAmp.Models.Track extends Backbone.Model
     clear: ->
       @destroy()

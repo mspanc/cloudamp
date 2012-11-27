@@ -1,4 +1,18 @@
+# This file is part of CloudAmp. For more information about CloudAmp,
+# please visit http://github.com/saepia/cloudamp. 
+#
+# Licensed under GNU Affero General Public License available 
+# at http://www.gnu.org/licenses/agpl-3.0.html
+#
+# (c) 2012 Marcin Lewandowski
+
 $ ->
+  # Playlist panel view.
+  # 
+  # It is mostly responsible for:
+  # * handling playlist add/edit/remove buttons and modals,
+  # * handling child views for playlist tabs and containers.
+  #
   class CloudAmp.Views.PlaylistsPanel extends Backbone.View
     el: $ "#panel_playlists"
     
@@ -21,20 +35,51 @@ $ ->
       "click       #edit_playlist_button"         : "show_edit_playlist_modal"
       "click       #remove_playlist_button"       : "show_remove_playlist_modal"
       "shown       a[data-toggle='tab']"          : "on_tab_changed"
-      "sortreceive .playlist-dragndrop"           : "on_track_dropped"
       
     
+    # This function is intended to be called with pregenerated data that
+    # come from Rails app database (serialized as JSON).
+    #
+    # The data structure should be like this:
+    #
+    # [
+    #   {"description": "123", 
+    #    "id"     : 1, 
+    #    "title"  : "123", 
+    #    "tracks" : [
+    #      { "artwork_url" : "http://i1.sndcdn.com/xyz",
+    #        "duration"    : "00:03:31",
+    #        "id"          : 45,
+    #        "title"       : "The Stock Holders - Nebulous",
+    #        "track_url"   : "http://api.soundcloud.com/tracks/58725589" }
+    #     ]
+    #   }
+    # ]
+    #
+    # It is just an array of hashes, which are attributes of Playlist model,
+    # with nested attributes of Track model referenced with key "tracks".
+    #
+    # @param initial_data initial playlists data
     bootstrap: (initial_data) ->
       @playlist_collection.reset initial_data
       @playlist_collection.each (playlist) =>
         playlist.tracks.reset playlist.get("tracks")
         playlist.unset("tracks")
       
-    
+
+    # Handles tab changes and stores current tab.
+    #
+    # @param event mouse event associated with the change
     on_tab_changed: (event) ->
       @current_playlist = $(event.target).parent().backboneView().model
       
 
+    # Renders one playlists.
+    #
+    # In fact it means rendering two views: one for tab, second for playlist
+    # container.
+    #
+    # @param playlist Playlist model to render
     render_one_playlist: (playlist) =>
       # Render playlist's tab
       tab_view   = new CloudAmp.Views.PlaylistTab({ model: playlist })
@@ -42,7 +87,6 @@ $ ->
 
       # Append playlist's tab to DOM
       @$("#panel_playlists_tabs ul").append tab_output
-
 
       # Render playlist contents's container
       container_view   = new CloudAmp.Views.PlaylistContainer({ model: playlist })
@@ -54,18 +98,19 @@ $ ->
       # Enable drag'n'drop
       CloudAmp.Helpers.DragNDrop.initialize_dragndrop_playlist_container $(container_output).find("tbody")
 
-      
       # Show message about empty playlist if it is empty
       container_view.update_empty_message()
-        
-      
 
       # Store references 
       @playlist_views[playlist.id] = 
         "tab"       : tab_view
         "container" : container_view
         
-      
+
+
+    # Renders all playlists.
+    #
+    # @param playlist Playlists collection to render
     render_all_playlists: (playlists) =>
       playlists.each (playlist) =>
         @render_one_playlist playlist
@@ -74,12 +119,17 @@ $ ->
       @update_remove_playlist_button()
 
 
+    # Cleanup playlist view.
+    #
+    # @param playlist Playlist model to cleanup
+    # @param collection parent collection of the model
     cleanup_playlist: (playlist, collection) =>
       playlist.destroy()
       delete @playlist_views[playlist.id]
       @select_first_playlist()
 
 
+    # Enables or disables remove playlist button when necessary
     update_remove_playlist_button: =>
       if @playlist_collection.size() == 1
         @$("#remove_playlist_button").attr("disabled", true)
@@ -89,11 +139,13 @@ $ ->
         @$("#remove_playlist_button").attr("data-original-title", "Remove this playlist")
 
 
+    # Selects first tab
     select_first_playlist: =>
       @$("#panel_playlists_tabs a[data-toggle=tab]:first").tab("show")
     
     
     
+    # Shows new playlist modal and resets its state
     show_new_playlist_modal: ->
       $("#modal_new_playlist button").attr "disabled", false
       $("#modal_new_playlist_field_title").val ""
@@ -101,6 +153,8 @@ $ ->
       $("#modal_new_playlist").modal 'show' 
         
 
+    # Shows edit playlist modal and fills its fields with data from currently
+    # selected playlist
     show_edit_playlist_modal: ->
       $("#modal_edit_playlist button").attr "disabled", false
       $("#modal_edit_playlist_field_title").val @current_playlist.get("title")
@@ -108,6 +162,7 @@ $ ->
       $("#modal_edit_playlist").modal 'show' 
 
       
+    # Shows remove playlist modal and resets its state
     show_remove_playlist_modal: =>
       return if @$("#remove_playlist_button").attr("disabled") == "disabled"
       
@@ -117,6 +172,12 @@ $ ->
       
 
 
+    # Helper function for validating playlist new/edit forms on modals.
+    #
+    # Prevents from saving changes if fields contain incorrect values.
+    # Shows errors if necessary.
+    #
+    # @param modal_type "new" or "edit"
     validate_playlist_form: (modal_type) ->
       $("#modal_" + modal_type + "_playlist_error_cannot_save").hide()
       $("#modal_" + modal_type + "_playlist_error_title_empty").hide()
@@ -134,7 +195,7 @@ $ ->
         return true
 
 
-
+    # Handles new playlist creation process invoked by new playlist modal.
     create_playlist: ->
       return unless @validate_playlist_form("new")
         
@@ -152,6 +213,8 @@ $ ->
           $("#modal_new_playlist button").attr "disabled", false
 
 
+
+    # Handles playlist update process invoked by edit playlist modal.
     update_playlist: =>
       return unless @validate_playlist_form("edit")
 
@@ -167,29 +230,13 @@ $ ->
           $("#modal_edit_playlist button").attr "disabled", false
 
 
+    # Handles playlist removal process invoked by remove playlist modal.
     destroy_playlist: =>
       @playlist_collection.remove @current_playlist
       $("#modal_remove_playlist button").attr "disabled", true
       $("#modal_remove_playlist").modal 'hide' 
 
      
-    # Handles receiving a track drag'n'dropped from search results.
-    #
-    # @param event jQuery event
-    # @param ui object that describes this drag'n'drop action, please refer to 
-    #        http://api.jqueryui.com/sortable/#event-receive for more information
-    on_track_dropped: (event, ui) ->
-      # Find model associated with dragged DOM element
-      model = ui.item.backboneView().model
-      
-      # Remove it model from search results collection
-      model.collection.remove model
-      
-      # Find ID of playlist that was used to drop the track and add it to the model
-      playlist_id = parseInt(ui.item.closest(".playlist-container").attr("playlist_id"))
-      model.set "playlist_id", playlist_id
-      
-      # Find tracks collection associated with this playlist and add new track
-      @playlist_views[playlist_id]["container"].model.tracks.add model
+
       
       

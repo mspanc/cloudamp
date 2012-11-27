@@ -1,4 +1,19 @@
+# This file is part of CloudAmp. For more information about CloudAmp,
+# please visit http://github.com/saepia/cloudamp. 
+#
+# Licensed under GNU Affero General Public License available 
+# at http://www.gnu.org/licenses/agpl-3.0.html
+#
+# (c) 2012 Marcin Lewandowski
+
 $ ->
+  # This model stores track collection of a search result.
+  #
+  # It uses custom synchronization method, by overriding default that comes
+  # from Backbone in order to fetch data from SoundCloud instead of our Rails app.
+  #
+  # For track collection of a Playlist please see TrackCollection
+  # model.
   class CloudAmp.Models.SearchResultCollection extends Backbone.Collection
     model: CloudAmp.Models.Track
 
