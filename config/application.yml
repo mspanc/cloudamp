@@ -1,22 +1,16 @@
-defaults: &defaults
+development:
+  env:
+    host: "localhost:3000"
+  soundcloud:
+    app: 
+      client_id: "dd570979d863d57758aedc411a5a10ea"
+      client_secret: "2dcc1b40298a3ee56117b3e692c41007"
+
+production:
+  env:
+    host: "cloudamp.saepia.net"
   soundcloud:
     app: 
       client_id: "f1c7facfa649e689af8bc445a61ff3b2"
       client_secret: "aa5bd2d7d62eecb8a370c8a816ef85dd"
-
-      
-development:
-  <<: *defaults
-  env:
-    host: "localhost:3000"
-
-test:
-  <<: *defaults
-  env:
-    host: "localhost:3000"
-
-production:
-  <<: *defaults
-  env:
-    host: "cloudamp.saepia.net"
 
