@@ -308,6 +308,9 @@ tr.track {
 
 
 
+
+/* Tracks styles in different states */
+
 tr.track:hover {
   cursor: move;
   background: #f0f0f0;
@@ -371,20 +374,27 @@ tr.track.paused:hover {
 
 
 /* Message about empty playlist */
-#panel_playlists_contents tr.message-empty td {
-  font-size: 200%;
-  color: #999;
-  text-align: center;
+#panel_playlists_contents {
+  tr.message-empty {
+    vertical-align: top;
+    
+    td {
+      font-size: 200%;
+      color: #999;
+      text-align: center;
+    }
+
+   .text {
+      @include border-radius(12px);
+
+      line-height: 150%;
+      border: 2px dashed #ccc;
+      padding: 20px;
+      margin: 20px;
+    }
+  }
 }
 
-#panel_playlists_contents tr.message-empty .text {
-  @include border-radius(12px);
-
-  line-height: 150%;
-  border: 2px dashed #ccc;
-  padding: 20px;
-  margin: 20px;
-}
 
 
 /* About Modal */

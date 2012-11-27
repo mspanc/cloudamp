@@ -21,11 +21,35 @@ $ ->
         .disableSelection()
         .sortable
           connectWith : ".playlist-dragndrop"
-          items       : ">*:not(.message-empty)"
+          items       : ">*:not(.playlist-dragndrop-invalid)"
           appendTo    : "#app"
           helper      : "clone"
           start       : (event, ui) ->
+            # Draw placeholder
             $(".ui-sortable-placeholder")
               .css("visibility", "visible")
               .append($('<td colspan="5" class="playlist-dragndrop-placeholder"></td>'))
+
+
+            # Add temporary filler to allow dropping below end of tbody
+            $("#panel_playlists .playlist-container.active table")
+              .css("height", "100%")
+
+            filler = $('<tr class="playlist-dragndrop-filler playlist-dragndrop-invalid"><td colspan="5"> </td></tr>')
+            $("#panel_playlists .playlist-container.active tbody")
+              .css("height", "100%")
+              .append(filler)
+              
+            $(".playlist-dragndrop-filler").height($(".playlist-dragndrop-filler").closest(".playlist-container").height())
+
+          stop       : (event, ui) ->
+            # Remove temporary filler to allow dropping below end of tbody
+            $("#panel_playlists .playlist-container.active table")
+              .css("height", "")
+
+            $("#panel_playlists .playlist-container.active tbody")
+              .css("height", "")
+
+            $("#panel_playlists .playlist-container.active .playlist-dragndrop-filler")
+              .remove()
 
