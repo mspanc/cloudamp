@@ -30,7 +30,9 @@
       =render :partial => "modal_bookmarklet"
       =render :partial => "modal_about"
 
-  
+
+  =render :partial => "common/analytics"    
+
   :javascript
     $(function() {
       window.APP.bootstrap_playlists(
@@ -39,4 +41,4 @@
     });
   
   
-    =render :partial => "common/analytics"  
+
