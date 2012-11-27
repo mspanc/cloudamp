@@ -1,6 +1,6 @@
 == CloudAmp
 
-CloudAmp is a ultimate online player for SoundCloud tracks.
+CloudAmp is aa ultimate online player for SoundCloud tracks.
 
 If is based on Ruby on Rails, but most of the logic is stored in the
 Backbone/CoffeeScript/Bootstrap/SCSS-powered user interface.
@@ -12,11 +12,15 @@ It is available at http://cloudamp.saepia.net
 
 Please follow standard steps for installing Ruby on Rails 3.1+ applications.
 
+ * clone
+ * edit config files (config/*.yml)
+ * bundle install
+ * rake db:migrate
+ * voila!
+
 == Configuration files
 
 The only custom configuration file is config/application.yml
-
-Keys are pretty self-explanatory.
 
 == Requirements
 
