@@ -5,8 +5,13 @@
       CloudAmp
     =stylesheet_link_tag :welcome
     =stylesheet_link_tag "http://fonts.googleapis.com/css?family=Average+Sans"
+    %meta{ :name => "description", :content => "Ultimate online music player for SoundCloud. Create own playlists from SoundCloud tracks and stream your favorite tunes." }/
+    %meta{ :name => "keywords", :content => "soundcloud, music, tracks, streaming, sound, cloud" }/
   
   %body.welcome
     .welcome-background
     .welcome-modal
       =yield
+      
+      
+    =render :partial => "common/analytics"
