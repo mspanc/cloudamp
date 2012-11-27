@@ -36,6 +36,7 @@ $ ->
     events:
       "click .action-remove a" : "clear"
       "click .action-play a"   : "invoke_playback_or_pause"
+      "dblclick"               : "invoke_playback_or_pause"
 
       
     # Cleanups the track. Attempts to play next track if currently removed track
