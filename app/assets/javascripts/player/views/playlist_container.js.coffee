@@ -107,8 +107,12 @@ $ ->
     #    one of the requests can fail and this procedure becomes no longer atomic
     store_positions: =>
       positions = []
+      
+      tracks = @$(".track")
+      
+      return if tracks.length == 0
 
-      @$(".track").each (i, element) -> 
+      tracks.each (i, element) -> 
         positions.push $(element).backboneView().model.id
       
       $.ajax
