@@ -1,10 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 gem 'rack', '~> 1.4.5'
+gem 'json', '~> 1.7.7'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'safe_yaml'
 gem 'haml'
 gem 'soundcloud'
 gem 'anjlab-bootstrap-rails', '>= 2.2', :require => 'bootstrap-rails'
